@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AHMAD — Web Developer & Programmer</title>
+  <meta name="description" content="Portfolio of Ahmad, a web developer and programmer building websites with HTML5, CSS3 and JavaScript.">
+  <meta name="theme-color" content="#0a1128">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a1128'/%3E%3Ctext x='50' y='68' font-size='56' font-family='Georgia' font-weight='700' text-anchor='middle' fill='%23d4af37'%3EA%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="header" id="header">
+    <nav class="nav container" aria-label="Main">
+      <a href="#home" class="logo">AHMAD<span>.</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#preview">Preview</a></li>
+        <li><a href="#contact" class="nav-cta">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home">
+      <div class="container hero-inner">
+        <p class="eyebrow reveal">Web Developer &amp; Programmer</p>
+        <h1 class="reveal">Hi, I'm <span class="gold">Ahmad</span>.<br>I build websites with clean code.</h1>
+        <p class="lead reveal">I create responsive, fast and carefully designed websites using HTML5, CSS3 and vanilla JavaScript.</p>
+        <div class="btn-row reveal">
+          <a href="#projects" class="btn btn-gold">View My Projects</a>
+          <a href="#contact" class="btn btn-outline">Get in Touch</a>
+        </div>
+      </div>
+      <a href="#about" class="scroll-hint" aria-label="Scroll to About"><span></span></a>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">01 — About</p>
+          <h2>About me</h2>
+        </header>
+        <div class="about-grid">
+          <div class="about-text reveal">
+            <p>I'm Ahmad, a web developer and programmer who enjoys turning ideas into working websites. I focus on writing clear, maintainable code and on interfaces that look good and feel simple to use on any device.</p>
+            <p>I build with the core web technologies: HTML5 for structure, CSS3 for design and JavaScript for interaction. This portfolio shows the projects I've built and published so far, and it grows with every new website I create.</p>
+          </div>
+          <ul class="facts reveal" id="facts"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="skills">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">02 — Skills</p>
+          <h2>Technical skills</h2>
+        </header>
+        <div class="skills-grid" id="skillsGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">03 — Projects</p>
+          <h2>My projects</h2>
+          <p class="sub">Every project below is live and its source code is public on GitHub.</p>
+        </header>
+        <div class="projects-grid" id="projectsGrid"></div>
+      </div>
+    </section>
+
+    <section class="section alt" id="preview">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">04 — Preview</p>
+          <h2>Screenshots &amp; live previews</h2>
+          <p class="sub">Browse a project right here, or open it in a full tab.</p>
+        </header>
+        <div class="preview reveal">
+          <div class="preview-controls">
+            <div class="tabs" id="projectTabs" role="tablist" aria-label="Projects"></div>
+            <div class="tabs" id="modeTabs" role="tablist" aria-label="Preview mode">
+              <button class="tab active" role="tab" data-mode="live" aria-selected="true">Live preview</button>
+              <button class="tab" role="tab" data-mode="shot" aria-selected="false">Screenshot</button>
+            </div>
+          </div>
+          <div class="browser">
+            <div class="browser-bar">
+              <i></i><i></i><i></i>
+              <span class="url" id="previewUrl"></span>
+            </div>
+            <div class="browser-body" id="previewBody"></div>
+          </div>
+          <div class="btn-row center">
+            <a class="btn btn-gold" id="previewVisit" target="_blank" rel="noopener noreferrer" href="#">Open live site ↗</a>
+            <a class="btn btn-outline" id="previewCode" target="_blank" rel="noopener noreferrer" href="#">View source code</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="github">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">05 — Open source</p>
+          <h2>GitHub repositories</h2>
+          <p class="sub">Browse the code behind every project.</p>
+        </header>
+        <div class="repo-list reveal" id="repoList"></div>
+        <div class="btn-row center reveal">
+          <a class="btn btn-outline" id="githubProfile" target="_blank" rel="noopener noreferrer" href="#">Visit my GitHub profile ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="contact">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">06 — Contact</p>
+          <h2>Let's talk</h2>
+          <p class="sub">Have a project in mind or want to say hello? Reach out.</p>
+        </header>
+        <div class="contact-grid">
+          <div class="contact-cards reveal" id="contactCards"></div>
+          <form class="form reveal" id="contactForm" novalidate>
+            <label>Name<input type="text" name="name" required autocomplete="name"></label>
+            <label>Email<input type="email" name="email" required autocomplete="email"></label>
+            <label>Message<textarea name="message" rows="5" required></textarea></label>
+            <button type="submit" class="btn btn-gold">Send message</button>
+            <p class="form-note" id="formNote" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="#home" class="logo">AHMAD<span>.</span></a>
+      <ul class="footer-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <p>© <span id="year"></span> Ahmad. Built with HTML, CSS &amp; JavaScript.</p>
+    </div>
+    <a href="#home" class="to-top" id="toTop" aria-label="Back to top">↑</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
