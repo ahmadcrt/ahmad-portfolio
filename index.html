@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
   <a class="skip" href="#main">Skip to content</a>
 
   <header class="header" id="header">
@@ -33,13 +34,31 @@
 
   <main id="main">
     <section class="hero" id="home">
-      <div class="container hero-inner">
-        <p class="eyebrow reveal">Web Developer &amp; Programmer</p>
-        <h1 class="reveal">Hi, I'm <span class="gold">Ahmad</span>.<br>I build websites with clean code.</h1>
-        <p class="lead reveal">I create responsive, fast and carefully designed websites using HTML5, CSS3 and vanilla JavaScript.</p>
-        <div class="btn-row reveal">
-          <a href="#projects" class="btn btn-gold">View My Projects</a>
-          <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      <div class="container hero-grid">
+        <div class="hero-inner">
+          <p class="eyebrow reveal"><span class="pulse" aria-hidden="true"></span>Web Developer &amp; Programmer</p>
+          <h1 class="reveal">Hi, I'm <span class="shimmer">Ahmad</span>.<br>I build websites with clean code.</h1>
+          <p class="lead reveal">I create responsive, fast and carefully designed websites using HTML5, CSS3 and vanilla JavaScript.</p>
+          <div class="btn-row reveal">
+            <a href="#projects" class="btn btn-gold">View My Projects</a>
+            <a href="#contact" class="btn btn-outline">Get in Touch</a>
+          </div>
+          <ul class="hero-chips reveal" aria-label="Core technologies">
+            <li>HTML5</li><li>CSS3</li><li>JavaScript</li>
+          </ul>
+        </div>
+        <div class="hero-visual reveal" aria-hidden="true">
+          <div class="code-card">
+            <div class="code-bar"><i></i><i></i><i></i><span>ahmad.js</span></div>
+<pre class="code-body"><span class="c-k">const</span> <span class="c-p">ahmad</span> = {
+  <span class="c-p">role</span>: <span class="c-s">"Web Developer"</span>,
+  <span class="c-p">stack</span>: [<span class="c-s">"HTML5"</span>, <span class="c-s">"CSS3"</span>, <span class="c-s">"JS"</span>],
+  <span class="c-p">projects</span>: <span class="c-n" id="codeProjects">1</span>,
+  <span class="c-p">focus</span>: <span class="c-s">"clean &amp; responsive"</span>,
+};<span class="caret"></span></pre>
+          </div>
+          <span class="float-badge fb1">&lt;/&gt; HTML5</span>
+          <span class="float-badge fb2">{ } CSS3</span>
         </div>
       </div>
       <a href="#about" class="scroll-hint" aria-label="Scroll to About"><span></span></a>
@@ -92,9 +111,15 @@
         <div class="preview reveal">
           <div class="preview-controls">
             <div class="tabs" id="projectTabs" role="tablist" aria-label="Projects"></div>
-            <div class="tabs" id="modeTabs" role="tablist" aria-label="Preview mode">
-              <button class="tab active" role="tab" data-mode="live" aria-selected="true">Live preview</button>
-              <button class="tab" role="tab" data-mode="shot" aria-selected="false">Screenshot</button>
+            <div class="group">
+              <div class="tabs device-tabs" id="deviceTabs" aria-label="Device size">
+                <button class="tab active" data-device="desktop" aria-pressed="true">Desktop</button>
+                <button class="tab" data-device="mobile" aria-pressed="false">Mobile</button>
+              </div>
+              <div class="tabs" id="modeTabs" role="tablist" aria-label="Preview mode">
+                <button class="tab active" role="tab" data-mode="live" aria-selected="true">Live preview</button>
+                <button class="tab" role="tab" data-mode="shot" aria-selected="false">Screenshot</button>
+              </div>
             </div>
           </div>
           <div class="browser">
@@ -136,27 +161,58 @@
         <div class="contact-grid">
           <div class="contact-cards reveal" id="contactCards"></div>
           <form class="form reveal" id="contactForm" novalidate>
-            <label>Name<input type="text" name="name" required autocomplete="name"></label>
+            <label>Name<input type="text" name="name" required minlength="2" autocomplete="name"></label>
             <label>Email<input type="email" name="email" required autocomplete="email"></label>
-            <label>Message<textarea name="message" rows="5" required></textarea></label>
-            <button type="submit" class="btn btn-gold">Send message</button>
-            <p class="form-note" id="formNote" role="status"></p>
+            <label>Message<textarea name="message" rows="5" required minlength="10"></textarea></label>
+            <label class="hp" aria-hidden="true">Leave empty<input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
+            <button type="submit" class="btn btn-gold" id="formBtn">Send message</button>
+            <p class="form-note" id="formNote" role="status" aria-live="polite"></p>
+            <p class="form-hint" id="formHint"></p>
           </form>
         </div>
       </div>
     </section>
   </main>
 
+  <dialog class="modal" id="previewModal" aria-labelledby="modalTitle">
+    <div class="modal-head">
+      <div><h3 id="modalTitle"></h3><small id="modalUrl"></small></div>
+      <button class="modal-x" id="modalClose" aria-label="Close preview">&times;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-foot">
+      <a class="btn btn-gold" id="modalVisit" target="_blank" rel="noopener noreferrer" href="#">Visit live project ↗</a>
+      <a class="btn btn-outline" id="modalCode" target="_blank" rel="noopener noreferrer" href="#">View source code</a>
+    </div>
+  </dialog>
+
   <footer class="footer">
-    <div class="container footer-inner">
-      <a href="#home" class="logo">AHMAD<span>.</span></a>
-      <ul class="footer-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <p>© <span id="year"></span> Ahmad. Built with HTML, CSS &amp; JavaScript.</p>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="logo">AHMAD<span>.</span></a>
+        <p>Web Developer &amp; Programmer building clean, responsive websites with HTML5, CSS3 and vanilla JavaScript.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Footer projects">
+        <h4>Projects</h4>
+        <ul id="footerProjects"></ul>
+      </nav>
+      <nav aria-label="Footer contact">
+        <h4>Connect</h4>
+        <ul id="footerConnect"></ul>
+      </nav>
+    </div>
+    <div class="container footer-bottom">
+      <p>© <span id="year"></span> Ahmad. All rights reserved.</p>
+      <p>Built with HTML5, CSS3 &amp; vanilla JavaScript.</p>
     </div>
     <a href="#home" class="to-top" id="toTop" aria-label="Back to top">↑</a>
   </footer>
