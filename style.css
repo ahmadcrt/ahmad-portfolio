@@ -297,3 +297,7 @@ body.modal-open{overflow:hidden}
   .footer-bottom{flex-direction:column}
   .project .btn{flex:1 1 100%}
 }
+
+/* Photo fallback (if ahmad.jpg is missing) */
+.photo-frame.no-img img{display:none}
+.photo-frame.no-img::after{content:"A";display:grid;place-items:center;aspect-ratio:3/4;border-radius:16px;background:linear-gradient(160deg,var(--navy-3),var(--navy-2));color:var(--gold);font:700 6rem var(--head)}
