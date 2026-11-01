@@ -74,6 +74,7 @@ document.documentElement.classList.add("js");
 /* ---------- Render: facts, skills ---------- */
 $("#facts").innerHTML = FACTS.map((f) => `<li><small>${esc(f.label)}</small><strong>${esc(f.value)}</strong></li>`).join("");
 $("#codeProjects").textContent = PROJECTS.length;
+$("#codeProjectsLabel").textContent = PROJECTS.length === 1 ? "live project published" : "live projects published";
 
 const ICONS = {
   html: '<svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#e34f26" d="M5 3l2 23 9 3 9-3 2-23z"/><text x="16" y="21" text-anchor="middle" font-size="14" font-weight="700" fill="#fff" font-family="Arial,sans-serif">5</text></svg>',

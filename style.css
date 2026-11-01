@@ -198,20 +198,15 @@ p{text-wrap:pretty}
 @keyframes shine{to{background-position:-220% 0}}
 .hero-chips{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2.2rem}
 .hero-chips li{font-size:.8rem;letter-spacing:.06em;color:var(--muted);border:1px solid var(--line);padding:.35rem .95rem;border-radius:999px;background:rgba(255,255,255,.03)}
-.hero-visual{position:relative;justify-self:center;width:100%;max-width:470px}
-.code-card{background:linear-gradient(160deg,rgba(22,35,73,.95),rgba(10,17,40,.95));border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow),0 0 60px rgba(212,175,55,.08);overflow:hidden;animation:float 7s ease-in-out infinite}
-@keyframes float{50%{transform:translateY(-12px)}}
-.code-bar{display:flex;align-items:center;gap:.4rem;padding:.7rem 1rem;border-bottom:1px solid var(--line);background:rgba(255,255,255,.03);font-size:.75rem;color:var(--muted)}
-.code-bar i{width:10px;height:10px;border-radius:50%;background:#46517a}
-.code-bar i:first-child{background:var(--gold)}
-.code-bar span{margin-left:.6rem}
-.code-body{padding:1.3rem 1.4rem;font:.86rem/1.9 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow-x:auto;color:var(--white)}
-.c-k{color:#c792ea}.c-s{color:var(--gold-2)}.c-p{color:#82aaff}.c-n{color:#f78c6c}
-.caret{display:inline-block;width:8px;height:1em;margin-left:3px;background:var(--gold);vertical-align:text-bottom;animation:blink 1s steps(1) infinite}
-@keyframes blink{50%{opacity:0}}
-.float-badge{position:absolute;background:var(--navy-3);border:1px solid var(--line);border-radius:12px;padding:.5rem .9rem;font-size:.78rem;font-weight:600;color:var(--gold-2);box-shadow:var(--shadow);animation:float 6s ease-in-out infinite}
-.fb1{top:-18px;right:-8px;animation-delay:-2s}
-.fb2{bottom:-16px;left:-10px;animation-delay:-4s}
+.hero-visual{position:relative;isolation:isolate;justify-self:center;width:100%;max-width:400px;margin:0}
+.photo-frame{position:relative;padding:10px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(160deg,var(--navy-3),var(--navy-2));box-shadow:var(--shadow)}
+.photo-frame::before{content:"";position:absolute;inset:0;border:1px solid var(--gold);border-radius:24px;transform:translate(16px,16px);opacity:.45;z-index:-1;pointer-events:none}
+.photo-frame img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;object-position:center top;border-radius:16px;background:var(--navy-2)}
+.photo-caption{position:absolute;left:-18px;bottom:-22px;display:grid;gap:.1rem;padding:.8rem 1.1rem;background:rgba(10,17,40,.92);backdrop-filter:blur(8px);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:12px;box-shadow:var(--shadow)}
+.photo-caption strong{font:700 .95rem var(--head);letter-spacing:.14em}
+.photo-caption span{font-size:.78rem;color:var(--muted)}
+.photo-caption small{margin-top:.3rem;font-size:.72rem;color:var(--gold-2);letter-spacing:.04em}
+.photo-caption b{font-weight:600}
 
 /* Technology cards */
 .tech{position:relative;overflow:hidden}
@@ -275,7 +270,7 @@ body.modal-open{overflow:hidden}
 @media (max-width:860px){
   .hero{padding:100px 0 80px}
   .hero-grid{grid-template-columns:1fr;gap:3rem}
-  .hero-visual{max-width:440px}
+  .hero-visual{max-width:360px}
   .scroll-hint{display:none}
   .footer-grid{grid-template-columns:1fr 1fr}
   .footer-brand{grid-column:1/-1}
@@ -288,8 +283,11 @@ body.modal-open{overflow:hidden}
   .tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .tabs::-webkit-scrollbar{display:none}
   .tab{flex:none;white-space:nowrap;min-height:40px}
-  .code-body{font-size:.76rem;padding:1.1rem}
-  .fb1{right:0}.fb2{left:0}
+  .hero-visual{max-width:300px}
+  .photo-frame{padding:8px;border-radius:20px}
+  .photo-frame::before{border-radius:20px;transform:translate(10px,10px)}
+  .photo-frame img{border-radius:13px}
+  .photo-caption{left:-8px;bottom:-16px;padding:.65rem .9rem}
   .modal{width:100vw;height:100dvh;max-height:none;border-radius:0;border:0}
   .modal-body{flex:1;height:auto}
   .modal-foot .btn{flex:1 1 100%}
