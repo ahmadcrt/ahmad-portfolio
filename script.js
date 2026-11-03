@@ -36,7 +36,7 @@ const SKILLS = [
   { icon: "git", accent: "#f05032", name: "Git & GitHub", match: "*",
     text: "Version control and publishing projects with GitHub Pages.", points: ["Commits", "Repositories", "GitHub Pages"] },
   { icon: "design", accent: "#d4af37", name: "Graphic Design", match: "",
-    text: "Visual design for brands and businesses — see the Design section.", points: [] },
+    text: "Flyers, logos, posters, social media graphics and more — see the Graphic Design portfolio.", points: [] },
 ];
 
 /* ---------------------------------------------------------------------
@@ -86,12 +86,36 @@ const PROJECTS = [
 ];
 
 /* ---------------------------------------------------------------------
-   DESIGNS — your graphic design work. Put images in /assets/design/ and add
-   one line per piece (keep images under ~400 KB each so the page stays fast):
-     { title: "Brand poster", category: "Posters", image: "assets/design/poster-1.jpg", alt: "Short description" },
-   While this list is empty, visitors see a "coming soon" message.
+   GRAPHIC DESIGN GALLERY — how to add your real work (no other editing needed):
+   1. Save your image in the  assets/design/  folder using the file name shown
+      on each placeholder (for example  business-flyer-01.jpg).
+   2. That's it — the placeholder is replaced automatically by your image.
+
+   To add MORE pieces, copy any line below, change the file name (…-02.jpg),
+   the title and (optionally) add  description: "Your own short description".
+   Optional fields:  thumb: "assets/design/thumbs/x.jpg" (small version for the
+   grid, full image opens in the viewer),  alt: "describe the image".
+   Delete a line to remove a piece. Delete all lines to hide the gallery.
    --------------------------------------------------------------------- */
+const DESIGN_CATEGORIES = [
+  { name: "Flyers & Promotional Designs", blurb: "Eye-catching flyers and promotional graphics.", ratio: "4/5" },
+  { name: "Logo Design & Brand Identity", blurb: "Logo design and visual brand identity.", ratio: "1/1" },
+  { name: "Social Media Designs", blurb: "Designs made for social media feeds and stories.", ratio: "1/1" },
+  { name: "Business & Event Posters", blurb: "Posters for businesses and events.", ratio: "3/4" },
+  { name: "Business Cards & Stationery", blurb: "Business cards and branded stationery.", ratio: "7/4" },
+  { name: "YouTube Thumbnails", blurb: "Thumbnail designs for video channels.", ratio: "16/9" },
+  { name: "Product Advertisements", blurb: "Advertising visuals that showcase products.", ratio: "4/5" },
+  { name: "Certificates & Invitations", blurb: "Certificate and invitation designs.", ratio: "4/3" },
+];
 const DESIGNS = [
+  { category: "Flyers & Promotional Designs", title: "Business Flyer 01",        image: "assets/design/business-flyer-01.jpg" },
+  { category: "Logo Design & Brand Identity", title: "Brand Identity 01",        image: "assets/design/brand-identity-01.jpg" },
+  { category: "Social Media Designs",         title: "Social Media Design 01",   image: "assets/design/social-media-design-01.jpg" },
+  { category: "Business & Event Posters",     title: "Event Poster 01",          image: "assets/design/event-poster-01.jpg" },
+  { category: "Business Cards & Stationery",  title: "Business Card 01",         image: "assets/design/business-card-01.jpg" },
+  { category: "YouTube Thumbnails",           title: "YouTube Thumbnail 01",     image: "assets/design/youtube-thumbnail-01.jpg" },
+  { category: "Product Advertisements",       title: "Product Advertisement 01", image: "assets/design/product-advertisement-01.jpg" },
+  { category: "Certificates & Invitations",   title: "Certificate Design 01",    image: "assets/design/certificate-invitation-01.jpg" },
 ];
 
 /* =====================================================================
@@ -126,7 +150,7 @@ const ICONS = {
   design: '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="#d4af37"/><circle cx="10.5" cy="14" r="2" fill="#0a1128"/><circle cx="16" cy="9.5" r="2" fill="#0a1128"/><circle cx="21.5" cy="14" r="2" fill="#0a1128"/><circle cx="19" cy="21" r="2.4" fill="#0a1128"/></svg>',
 };
 const countLabel = (s) => {
-  if (s.icon === "design") { const n = DESIGNS.length; return n ? `${n} work${n > 1 ? "s" : ""} shown` : ""; }
+  if (s.icon === "design") return "";
   const n = PROJECTS.filter((p) => s.match === "*" ? p.live || p.repo : p.tags.includes(s.match)).length;
   return n ? `Used in ${n} project${n > 1 ? "s" : ""}` : "";
 };
@@ -356,39 +380,68 @@ $("#footerConnect").innerHTML = [
   `<li><a href="#contact">Contact form</a></li>`,
 ].join("");
 
-/* ---------- Design gallery + lightbox ---------- */
+/* ---------- Graphic design gallery + lightbox ---------- */
 const gal = $("#designGallery"), lb = $("#lightbox");
 let lbVis = [], lbPos = 0;
+const catOf = (d) => DESIGN_CATEGORIES.find((c) => c.name === d.category) || { blurb: "", ratio: "4/5" };
+const fileOf = (d) => (d.image || "").split("/").pop();
+const phHTML = (d) => `<span class="ph-badge">Placeholder</span><span class="ph-icon" aria-hidden="true">✦</span><span class="ph-file">${esc(fileOf(d))}</span><span class="ph-note">Your design goes here</span>`;
+
 if (!DESIGNS.length) {
   $("#designEmpty").hidden = false;
 } else {
   gal.innerHTML = DESIGNS.map((d, i) => `
-    <button type="button" class="g-item reveal" data-d="${i}" data-cat="${esc(d.category || "")}" aria-label="View ${esc(d.title)}">
-      <img src="${esc(d.image)}" alt="${esc(d.alt || d.title)}" loading="lazy" decoding="async"${d.width ? ` width="${+d.width}" height="${+d.height}"` : ""}>
-      <span class="g-cap"><strong>${esc(d.title)}</strong>${d.category ? `<em>${esc(d.category)}</em>` : ""}</span>
-    </button>`).join("");
-  $$(".g-item img", gal).forEach((img) => img.addEventListener("error", () => img.closest(".g-item").remove()));
-  const cats = [...new Set(DESIGNS.map((d) => d.category).filter(Boolean))];
-  const df = $("#designFilters");
-  if (cats.length > 1) {
-    df.hidden = false;
-    df.innerHTML = ["All", ...cats].map((c, i) => `<button type="button" class="tab${i ? "" : " active"}" data-c="${i ? esc(c) : ""}" aria-pressed="${!i}">${esc(c)}</button>`).join("");
-    df.addEventListener("click", (e) => {
-      const b = e.target.closest("[data-c]"); if (!b) return;
-      $$("button", df).forEach((x) => { x.classList.toggle("active", x === b); x.setAttribute("aria-pressed", x === b); });
-      $$(".g-item", gal).forEach((g) => { g.hidden = !!b.dataset.c && g.dataset.cat !== b.dataset.c; });
+    <article class="g-card reveal" data-d="${i}" data-cat="${esc(d.category)}" style="--d:${(i % 3) * 0.08}s">
+      <button type="button" class="g-media" style="--r:${esc(d.ratio || catOf(d).ratio)}" aria-label="View larger: ${esc(d.title)}">
+        <img alt="${esc(d.alt || d.title)}" loading="lazy" decoding="async">
+        <span class="g-zoom" aria-hidden="true">View ⤢</span>
+      </button>
+      <div class="g-meta">
+        <span class="g-cat">${esc(d.category)}</span>
+        <h3>${esc(d.title)}</h3>
+        <p>${esc(d.description || catOf(d).blurb)}</p>
+      </div>
+    </article>`).join("");
+
+  // Show the real image if the file exists; otherwise a clearly-labelled placeholder.
+  $$(".g-card", gal).forEach((card) => {
+    const d = DESIGNS[+card.dataset.d], media = $(".g-media", card), img = $("img", media);
+    img.addEventListener("load", () => { media.style.aspectRatio = "auto"; img.classList.add("loaded"); card.dataset.ph = ""; });
+    img.addEventListener("error", () => {
+      img.remove(); card.dataset.ph = "1";
+      media.insertAdjacentHTML("afterbegin", `<span class="ph">${phHTML(d)}</span>`);
     });
-  }
+    img.src = d.thumb || d.image;
+  });
+
+  // Category filters (only categories that have designs)
+  const cats = DESIGN_CATEGORIES.filter((c) => DESIGNS.some((d) => d.category === c.name));
+  const df = $("#designFilters");
+  df.hidden = false;
+  df.innerHTML = [{ name: "All", all: true }, ...cats].map((c, i) =>
+    `<button type="button" class="tab${i ? "" : " active"}" data-c="${c.all ? "" : esc(c.name)}" aria-pressed="${!i}">${esc(c.name)}</button>`).join("");
+  df.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-c]"); if (!b) return;
+    $$("button", df).forEach((x) => { x.classList.toggle("active", x === b); x.setAttribute("aria-pressed", x === b); });
+    $$(".g-card", gal).forEach((g) => { g.hidden = !!b.dataset.c && g.dataset.cat !== b.dataset.c; });
+  });
+
+  // Lightbox
   const lbShow = (pos) => {
     lbPos = (pos + lbVis.length) % lbVis.length;
-    const d = DESIGNS[lbVis[lbPos]];
-    $("#lbImg").src = d.image; $("#lbImg").alt = d.alt || d.title;
-    $("#lbTitle").textContent = d.title; $("#lbCat").textContent = d.category || "";
+    const i = lbVis[lbPos], d = DESIGNS[i], isPh = $(`.g-card[data-d="${i}"]`, gal).dataset.ph === "1";
+    const img = $("#lbImg"), ph = $("#lbPh");
+    ph.hidden = !isPh; img.hidden = isPh;
+    if (isPh) { ph.style.setProperty("--r", d.ratio || catOf(d).ratio); ph.innerHTML = phHTML(d); img.removeAttribute("src"); }
+    else { img.src = d.image; img.alt = d.alt || d.title; }
+    $("#lbTitle").textContent = d.title; $("#lbCat").textContent = d.category;
+    $("#lbDesc").textContent = d.description || catOf(d).blurb;
+    $("#lbCount").textContent = `${lbPos + 1} / ${lbVis.length}`;
   };
   gal.addEventListener("click", (e) => {
-    const b = e.target.closest(".g-item"); if (!b || typeof lb.showModal !== "function") return;
-    lbVis = $$(".g-item:not([hidden])", gal).map((x) => +x.dataset.d);
-    lbShow(lbVis.indexOf(+b.dataset.d));
+    const b = e.target.closest(".g-media"); if (!b || typeof lb.showModal !== "function") return;
+    lbVis = $$(".g-card:not([hidden])", gal).map((x) => +x.dataset.d);
+    lbShow(lbVis.indexOf(+b.closest(".g-card").dataset.d));
     $$(".lb-nav", lb).forEach((n) => (n.hidden = lbVis.length < 2));
     document.body.classList.add("modal-open"); lb.showModal();
   });
@@ -399,6 +452,12 @@ if (!DESIGNS.length) {
   lb.addEventListener("keydown", (e) => { if (e.key === "ArrowLeft") lbShow(lbPos - 1); if (e.key === "ArrowRight") lbShow(lbPos + 1); });
   lb.addEventListener("close", () => { $("#lbImg").removeAttribute("src"); document.body.classList.remove("modal-open"); });
 }
+
+// "Let's Work Together" -> existing contact section (with a friendly starter message)
+$("#designCta")?.addEventListener("click", () => {
+  const m = $("#contactForm")?.elements.message;
+  if (m && !m.value.trim()) m.value = "Hi Ahmad, I have a design project in mind and would like to work with you.";
+});
 
 /* ---------- Mobile nav ---------- */
 const toggle = $("#navToggle"), menu = $("#navMenu");

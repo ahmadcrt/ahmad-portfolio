@@ -104,16 +104,23 @@
       <div class="container">
         <header class="section-head reveal">
           <p class="eyebrow">04 — Graphic design</p>
-          <h2>Design work</h2>
-          <p class="sub">Brand visuals and graphics I've created. Tap any piece to view it larger.</p>
+          <h2 class="design-title">Graphic Design Portfolio</h2>
+          <p class="tagline">Creative visuals. Strong identities. Meaningful designs.</p>
         </header>
-        <div class="tabs filters reveal" id="designFilters" role="group" aria-label="Filter design work" hidden></div>
+        <div class="tabs filters design-filters reveal" id="designFilters" role="group" aria-label="Filter design work" hidden></div>
         <div class="gallery" id="designGallery"></div>
         <div class="design-empty reveal" id="designEmpty" hidden>
           <div class="design-empty-icon" aria-hidden="true">✦</div>
           <h3>Selected design work coming soon</h3>
           <p>I'm preparing a curated selection of my graphic design projects for this gallery.</p>
           <a class="btn btn-outline" href="#contact">Request a design</a>
+        </div>
+        <div class="design-cta reveal">
+          <div>
+            <h3>Have a design project in mind?</h3>
+            <p>Let's create something professional for your brand.</p>
+          </div>
+          <a class="btn btn-gold" href="#contact" id="designCta">Let's Work Together</a>
         </div>
       </div>
     </section>
@@ -206,8 +213,9 @@
   <dialog class="modal lightbox" id="lightbox" aria-label="Design preview">
     <button class="modal-x lb-close" id="lbClose" aria-label="Close">&times;</button>
     <figure class="lb-fig">
+      <div class="ph lb-ph" id="lbPh" hidden></div>
       <img id="lbImg" alt="">
-      <figcaption><strong id="lbTitle"></strong><span id="lbCat"></span></figcaption>
+      <figcaption><strong id="lbTitle"></strong><span id="lbCat"></span><p id="lbDesc"></p><small id="lbCount"></small></figcaption>
     </figure>
     <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">‹</button>
     <button class="lb-nav lb-next" id="lbNext" aria-label="Next">›</button>
