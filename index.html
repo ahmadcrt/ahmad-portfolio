@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AHMAD — Web Developer & Programmer</title>
-  <meta name="description" content="Portfolio of Ahmad, a web developer and programmer building websites with HTML5, CSS3 and JavaScript.">
+  <title>AHMAD YUNUSA — Web Developer & Graphic Designer</title>
+  <meta name="description" content="Portfolio of Ahmad Yunusa, web developer and graphic designer. Websites and visual design for clients locally and internationally.">
   <meta name="theme-color" content="#0a1128">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a1128'/%3E%3Ctext x='50' y='68' font-size='56' font-family='Georgia' font-weight='700' text-anchor='middle' fill='%23d4af37'%3EA%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,7 @@
 
   <header class="header" id="header">
     <nav class="nav container" aria-label="Main">
-      <a href="#home" class="logo">AHMAD<span>.</span></a>
+      <a href="#home" class="logo">AHMAD YUNUSA<span>.</span></a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
         <span></span><span></span><span></span>
       </button>
@@ -26,6 +26,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#projects">Projects</a></li>
+        <li><a href="#design">Design</a></li>
         <li><a href="#preview">Preview</a></li>
         <li><a href="#contact" class="nav-cta">Contact</a></li>
       </ul>
@@ -36,24 +37,24 @@
     <section class="hero" id="home">
       <div class="container hero-grid">
         <div class="hero-inner">
-          <p class="eyebrow reveal"><span class="pulse" aria-hidden="true"></span>Web Developer &amp; Programmer</p>
-          <h1 class="reveal">Hi, I'm <span class="shimmer">Ahmad</span>.<br>I build websites with clean code.</h1>
-          <p class="lead reveal">I create responsive, fast and carefully designed websites using HTML5, CSS3 and vanilla JavaScript.</p>
+          <p class="eyebrow reveal"><span class="pulse" aria-hidden="true"></span>Web Developer &amp; Graphic Designer</p>
+          <h1 class="reveal">Hi, I'm <span class="shimmer">Ahmad Yunusa</span>.<br>I design and build websites.</h1>
+          <p class="lead reveal">I create responsive websites and visual designs for brands and businesses, built with HTML5, CSS3 and vanilla JavaScript.</p>
           <div class="btn-row reveal">
             <a href="#projects" class="btn btn-gold">View My Projects</a>
             <a href="#contact" class="btn btn-outline">Get in Touch</a>
           </div>
           <ul class="hero-chips reveal" aria-label="Core technologies">
-            <li>HTML5</li><li>CSS3</li><li>JavaScript</li>
+            <li>HTML5</li><li>CSS3</li><li>JavaScript</li><li>Graphic Design</li>
           </ul>
         </div>
         <figure class="hero-visual reveal">
           <div class="photo-frame">
-            <img src="ahmad.jpg" alt="Portrait of Ahmad, web developer and programmer" width="1000" height="1333" fetchpriority="high" decoding="async" onerror="this.parentElement.classList.add('no-img')">
+            <img src="ahmad.jpg" alt="Portrait of Ahmad Yunusa, web developer and graphic designer" width="1000" height="1333" fetchpriority="high" decoding="async" onerror="this.parentElement.classList.add('no-img')">
           </div>
           <figcaption class="photo-caption">
-            <strong>AHMAD</strong>
-            <span>Web Developer &amp; Programmer</span>
+            <strong>AHMAD YUNUSA</strong>
+            <span>Web Developer &amp; Graphic Designer</span>
             <small><b id="codeProjects">1</b> <span id="codeProjectsLabel">live project published</span></small>
           </figcaption>
         </figure>
@@ -69,8 +70,8 @@
         </header>
         <div class="about-grid">
           <div class="about-text reveal">
-            <p>I'm Ahmad, a web developer and programmer who enjoys turning ideas into working websites. I focus on writing clear, maintainable code and on interfaces that look good and feel simple to use on any device.</p>
-            <p>I build with the core web technologies: HTML5 for structure, CSS3 for design and JavaScript for interaction. This portfolio shows the projects I've built and published so far, and it grows with every new website I create.</p>
+            <p>I'm Ahmad Yunusa, a web developer and graphic designer. I turn ideas into working websites and clear visual designs, with a focus on clean code and interfaces that look good and feel simple to use on any device.</p>
+            <p>I build with the core web technologies: HTML5 for structure, CSS3 for design and JavaScript for interaction. This portfolio shows my website projects across different industries, along with my graphic design work. It grows with every project I complete.</p>
           </div>
           <ul class="facts reveal" id="facts"></ul>
         </div>
@@ -91,17 +92,36 @@
       <div class="container">
         <header class="section-head reveal">
           <p class="eyebrow">03 — Projects</p>
-          <h2>My projects</h2>
-          <p class="sub">Every project below is live and its source code is public on GitHub.</p>
+          <h2>Selected projects</h2>
+          <p class="sub">Website projects across ten industries. Live projects link to the working site. Some are fictional demos built to showcase my skills; the rest are coming soon.</p>
         </header>
+        <div class="tabs filters reveal" id="projectFilters" role="group" aria-label="Filter projects"></div>
         <div class="projects-grid" id="projectsGrid"></div>
       </div>
     </section>
 
-    <section class="section alt" id="preview">
+    <section class="section alt" id="design">
       <div class="container">
         <header class="section-head reveal">
-          <p class="eyebrow">04 — Preview</p>
+          <p class="eyebrow">04 — Graphic design</p>
+          <h2>Design work</h2>
+          <p class="sub">Brand visuals and graphics I've created. Tap any piece to view it larger.</p>
+        </header>
+        <div class="tabs filters reveal" id="designFilters" role="group" aria-label="Filter design work" hidden></div>
+        <div class="gallery" id="designGallery"></div>
+        <div class="design-empty reveal" id="designEmpty" hidden>
+          <div class="design-empty-icon" aria-hidden="true">✦</div>
+          <h3>Selected design work coming soon</h3>
+          <p>I'm preparing a curated selection of my graphic design projects for this gallery.</p>
+          <a class="btn btn-outline" href="#contact">Request a design</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="preview">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">05 — Preview</p>
           <h2>Screenshots &amp; live previews</h2>
           <p class="sub">Browse a project right here, or open it in a full tab.</p>
         </header>
@@ -134,12 +154,12 @@
       </div>
     </section>
 
-    <section class="section" id="github">
+    <section class="section alt" id="github">
       <div class="container">
         <header class="section-head reveal">
-          <p class="eyebrow">05 — Open source</p>
+          <p class="eyebrow">06 — Open source</p>
           <h2>GitHub repositories</h2>
-          <p class="sub">Browse the code behind every project.</p>
+          <p class="sub">Source code for projects with a public repository.</p>
         </header>
         <div class="repo-list reveal" id="repoList"></div>
         <div class="btn-row center reveal">
@@ -148,12 +168,12 @@
       </div>
     </section>
 
-    <section class="section alt" id="contact">
+    <section class="section" id="contact">
       <div class="container">
         <header class="section-head reveal">
-          <p class="eyebrow">06 — Contact</p>
+          <p class="eyebrow">07 — Contact</p>
           <h2>Let's talk</h2>
-          <p class="sub">Have a project in mind or want to say hello? Reach out.</p>
+          <p class="sub">Need a website or a design? Tell me about your project and I'll get back to you.</p>
         </header>
         <div class="contact-grid">
           <div class="contact-cards reveal" id="contactCards"></div>
@@ -183,11 +203,21 @@
     </div>
   </dialog>
 
+  <dialog class="modal lightbox" id="lightbox" aria-label="Design preview">
+    <button class="modal-x lb-close" id="lbClose" aria-label="Close">&times;</button>
+    <figure class="lb-fig">
+      <img id="lbImg" alt="">
+      <figcaption><strong id="lbTitle"></strong><span id="lbCat"></span></figcaption>
+    </figure>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+    <button class="lb-nav lb-next" id="lbNext" aria-label="Next">›</button>
+  </dialog>
+
   <footer class="footer">
     <div class="container footer-grid">
       <div class="footer-brand">
-        <a href="#home" class="logo">AHMAD<span>.</span></a>
-        <p>Web Developer &amp; Programmer building clean, responsive websites with HTML5, CSS3 and vanilla JavaScript.</p>
+        <a href="#home" class="logo">AHMAD YUNUSA<span>.</span></a>
+        <p>Ahmad Yunusa — Web Developer &amp; Graphic Designer creating responsive websites and visual designs.</p>
       </div>
       <nav aria-label="Footer navigation">
         <h4>Navigate</h4>
@@ -195,6 +225,7 @@
           <li><a href="#about">About</a></li>
           <li><a href="#skills">Skills</a></li>
           <li><a href="#projects">Projects</a></li>
+          <li><a href="#design">Design</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -208,7 +239,7 @@
       </nav>
     </div>
     <div class="container footer-bottom">
-      <p>© <span id="year"></span> Ahmad. All rights reserved.</p>
+      <p>© <span id="year"></span> Ahmad Yunusa. All rights reserved.</p>
       <p>Built with HTML5, CSS3 &amp; vanilla JavaScript.</p>
     </div>
     <a href="#home" class="to-top" id="toTop" aria-label="Back to top">↑</a>

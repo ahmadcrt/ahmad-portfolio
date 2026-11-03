@@ -19,8 +19,8 @@ const CONFIG = {
 
 // Short facts shown in the About section (only true things!)
 const FACTS = [
-  { label: "Role", value: "Web Developer & Programmer" },
-  { label: "Focus", value: "Responsive websites & clean code" },
+  { label: "Role", value: "Web Developer & Graphic Designer" },
+  { label: "Focus", value: "Responsive websites & visual design" },
   { label: "Core stack", value: "HTML5 · CSS3 · JavaScript" },
 ];
 
@@ -35,31 +35,63 @@ const SKILLS = [
     text: "Vanilla JavaScript for interactive, dynamic interfaces.", points: ["DOM", "Events", "ES6+", "Fetch API"] },
   { icon: "git", accent: "#f05032", name: "Git & GitHub", match: "*",
     text: "Version control and publishing projects with GitHub Pages.", points: ["Commits", "Repositories", "GitHub Pages"] },
+  { icon: "design", accent: "#d4af37", name: "Graphic Design", match: "",
+    text: "Visual design for brands and businesses — see the Design section.", points: [] },
 ];
 
 /* ---------------------------------------------------------------------
-   PROJECTS — to add a new website, copy one block below, paste it at the
-   end of the list (add a comma), and change the values. That's it!
-   screenshot: put an image in the /assets folder (e.g. "assets/my-site.png").
-   Leave it as "" if you don't have one yet.
+   PROJECTS — one block per website. To update a project, just fill in its fields:
+     live: the working website URL  -> the card becomes "Live" automatically
+     repo: the GitHub repository URL (leave "" if none)
+     tags: technologies you actually used, e.g. ["HTML5","CSS3","JavaScript"]
+     screenshot: optional. By default the site looks for your own screenshot at
+                 assets/projects/<project-name>.jpg (e.g. assets/projects/nova-digital.jpg),
+                 then falls back to an automatic screenshot of the live site.
+   Projects with no "live" link show as "Coming Soon". Nothing is shown that
+   you haven't filled in.
    --------------------------------------------------------------------- */
 const PROJECTS = [
-  {
-    title: "NOVA DIGITAL",
-    description: "My first published website, built with front-end web technologies and hosted on GitHub Pages.",
+  { title: "NOVA DIGITAL", category: "Digital Marketing Agency",
+    description: "My first published website: a digital marketing agency site, built with front-end web technologies and hosted on GitHub Pages.",
     tags: ["HTML5", "CSS3", "JavaScript"],
-    live: "https://ahmadcrt.github.io/nova-digital/",
-    repo: "https://github.com/ahmadcrt/nova-digital",
-    screenshot: "assets/nova-digital.png",
-  },
-  // {
-  //   title: "My Next Project",
-  //   description: "Short description of what it is.",
-  //   tags: ["HTML5", "CSS3"],
-  //   live: "https://ahmadcrt.github.io/my-next-project/",
-  //   repo: "https://github.com/ahmadcrt/my-next-project",
-  //   screenshot: "assets/my-next-project.png",
-  // },
+    live: "https://ahmadcrt.github.io/nova-digital/", repo: "https://github.com/ahmadcrt/nova-digital", screenshot: "" },
+  { title: "AHMAD PORTFOLIO", category: "Personal Developer Portfolio",
+    description: "The portfolio you're viewing now: a responsive site presenting my website projects and design work.",
+    tags: ["HTML5", "CSS3", "JavaScript"],
+    live: "https://ahmadcrt.github.io/ahmad-portfolio/", repo: "https://github.com/ahmadcrt/ahmad-portfolio", screenshot: "" },
+  { title: "LUXORA ESTATES", category: "Real Estate",
+    description: "A demo luxury real estate website with searchable property listings, services and an enquiry form. All properties and people are fictional.",
+    tags: [], live: "https://ahmadcrt.github.io/luxora-estates/", repo: "", screenshot: "" },
+  { title: "SAVORA RESTAURANT", category: "Restaurant & Food",
+    description: "A fictional restaurant website built as a portfolio demonstration, with a menu, gallery and a demo reservation form.",
+    tags: [], live: "https://ahmadcrt.github.io/savora-restaurant/", repo: "", screenshot: "" },
+  { title: "VELORA FITNESS", category: "Fitness & Gym",
+    description: "A fictional premium gym website built as a front-end portfolio project, with programmes, trainers, membership plans and a class schedule.",
+    tags: [], live: "https://ahmadcrt.github.io/velora-fitness/", repo: "", screenshot: "" },
+  { title: "AMOO TECH", category: "Electronics E-commerce",
+    description: "A fictional electronics store built for a front-end portfolio, with product listings, categories, sorting and availability filters.",
+    tags: [], live: "https://ahmadcrt.github.io/Amoo-tech/", repo: "", screenshot: "" },
+  { title: "EDUCORE", category: "Online Learning Platform",
+    description: "An online learning platform demo with three learning academies, a course catalogue and sample course content.",
+    tags: [], live: "https://ahmadcrt.github.io/educore/index.html", repo: "", screenshot: "" },
+  { title: "REDCARE HOSPITALS", category: "Healthcare Management",
+    description: "A healthcare website project for a hospital brand, focused on clear information for patients and visitors.",
+    tags: [], live: "", repo: "", screenshot: "" },
+  { title: "AURELIA HOTELS", category: "Hotel Booking & Management",
+    description: "A hotel website project focused on presenting rooms and hospitality to prospective guests.",
+    tags: [], live: "", repo: "", screenshot: "" },
+  { title: "PAYNEX FINTECH", category: "Financial Technology",
+    description: "A financial technology website project focused on presenting digital finance services clearly.",
+    tags: [], live: "", repo: "", screenshot: "" },
+];
+
+/* ---------------------------------------------------------------------
+   DESIGNS — your graphic design work. Put images in /assets/design/ and add
+   one line per piece (keep images under ~400 KB each so the page stays fast):
+     { title: "Brand poster", category: "Posters", image: "assets/design/poster-1.jpg", alt: "Short description" },
+   While this list is empty, visitors see a "coming soon" message.
+   --------------------------------------------------------------------- */
+const DESIGNS = [
 ];
 
 /* =====================================================================
@@ -71,79 +103,113 @@ const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const esc = (str) => String(str).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 document.documentElement.classList.add("js");
 
-/* ---------- Render: facts, skills ---------- */
-$("#facts").innerHTML = FACTS.map((f) => `<li><small>${esc(f.label)}</small><strong>${esc(f.value)}</strong></li>`).join("");
-$("#codeProjects").textContent = PROJECTS.length;
-$("#codeProjectsLabel").textContent = PROJECTS.length === 1 ? "live project published" : "live projects published";
+/* ---------- Helpers ---------- */
+const isLive = (p) => !!p.live;
+const statusOf = (p) => p.status || (p.live ? "Live" : "Coming Soon");
+const LIVE_IDX = PROJECTS.map((p, i) => (p.live ? i : -1)).filter((i) => i >= 0);
+const SOON = PROJECTS.length - LIVE_IDX.length;
+const slug = (t) => t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+const initials = (t) => t.split(/\s+/).slice(0, 2).map((w) => w[0]).join("");
+const hostOf = (u) => { try { return new URL(u).host; } catch { return u; } };
 
+/* ---------- Render: facts, hero count ---------- */
+$("#facts").innerHTML = FACTS.map((f) => `<li><small>${esc(f.label)}</small><strong>${esc(f.value)}</strong></li>`).join("");
+$("#codeProjects").textContent = LIVE_IDX.length;
+$("#codeProjectsLabel").textContent = SOON ? `live · ${SOON} coming soon` : (LIVE_IDX.length === 1 ? "live project" : "live projects");
+
+/* ---------- Render: skills ---------- */
 const ICONS = {
   html: '<svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#e34f26" d="M5 3l2 23 9 3 9-3 2-23z"/><text x="16" y="21" text-anchor="middle" font-size="14" font-weight="700" fill="#fff" font-family="Arial,sans-serif">5</text></svg>',
   css: '<svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#1572b6" d="M5 3l2 23 9 3 9-3 2-23z"/><text x="16" y="21" text-anchor="middle" font-size="14" font-weight="700" fill="#fff" font-family="Arial,sans-serif">3</text></svg>',
   js: '<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="26" height="26" rx="3" fill="#f7df1e"/><text x="26" y="26" text-anchor="end" font-size="12" font-weight="800" fill="#1a1a1a" font-family="Arial,sans-serif">JS</text></svg>',
   git: '<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="6" y="6" width="20" height="20" rx="3" transform="rotate(45 16 16)" fill="#f05032"/><g stroke="#fff" stroke-width="2" fill="#fff"><path d="M12 12v8M12 14c0 3 8 1 8 5" fill="none"/><circle cx="12" cy="11" r="1.8"/><circle cx="12" cy="21" r="1.8"/><circle cx="20" cy="19" r="1.8"/></g></svg>',
+  design: '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="#d4af37"/><circle cx="10.5" cy="14" r="2" fill="#0a1128"/><circle cx="16" cy="9.5" r="2" fill="#0a1128"/><circle cx="21.5" cy="14" r="2" fill="#0a1128"/><circle cx="19" cy="21" r="2.4" fill="#0a1128"/></svg>',
 };
-const usedIn = (s) => PROJECTS.filter((p) => s.match === "*" || p.tags.includes(s.match)).length;
+const countLabel = (s) => {
+  if (s.icon === "design") { const n = DESIGNS.length; return n ? `${n} work${n > 1 ? "s" : ""} shown` : ""; }
+  const n = PROJECTS.filter((p) => s.match === "*" ? p.live || p.repo : p.tags.includes(s.match)).length;
+  return n ? `Used in ${n} project${n > 1 ? "s" : ""}` : "";
+};
 
-$("#skillsGrid").innerHTML = SKILLS.map((s, i) => {
-  const n = usedIn(s);
-  return `<article class="card tech reveal" style="--d:${i * 0.08}s;--accent:${esc(s.accent || "#d4af37")}">
+$("#skillsGrid").innerHTML = SKILLS.map((s, i) => `
+  <article class="card tech reveal" style="--d:${i * 0.08}s;--accent:${esc(s.accent || "#d4af37")}">
     <div class="tech-top">
       <div class="tech-icon">${ICONS[s.icon] || esc(s.icon)}</div>
-      <span class="tech-count">${n ? `Used in ${n} project${n > 1 ? "s" : ""}` : ""}</span>
+      <span class="tech-count">${countLabel(s)}</span>
     </div>
     <h3>${esc(s.name)}</h3>
     <p>${esc(s.text)}</p>
-    <ul class="chips">${(s.points || []).map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
-  </article>`;
-}).join("");
+    ${(s.points || []).length ? `<ul class="chips">${s.points.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+  </article>`).join("");
 
 /* ---------- Screenshots: local file first, then automatic screenshot of the live site ---------- */
 function attachShot(img, p, onFail) {
-  const srcs = [];
-  if (p.screenshot) srcs.push(p.screenshot);
-  if (CONFIG.autoScreenshots) srcs.push(`https://s0.wp.com/mshots/v1/${encodeURIComponent(p.live)}?w=1280&h=800`);
+  const srcs = [p.screenshot || `assets/projects/${slug(p.title)}.jpg`];
+  if (CONFIG.autoScreenshots && p.live) {
+    const u = encodeURIComponent(p.live);
+    srcs.push(`https://api.microlink.io/?url=${u}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1280&viewport.height=800`);
+    srcs.push(`https://s0.wp.com/mshots/v1/${u}?w=1280&h=800`);
+  }
   let i = 0;
   const next = () => { if (i >= srcs.length) { img.removeEventListener("error", next); onFail && onFail(); return; } img.src = srcs[i++]; };
   img.addEventListener("load", () => img.classList.add("loaded"));
   img.addEventListener("error", next);
   next();
 }
-const hostOf = (u) => { try { return new URL(u).host; } catch { return u; } };
 
 /* ---------- Render: projects ---------- */
-$("#projectsGrid").innerHTML = PROJECTS.map((p, i) => `
-  <article class="card project reveal" style="--d:${i * 0.08}s">
+function projectCard(p, i) {
+  const live = isLive(p), st = statusOf(p);
+  const cover = live
+    ? `<div class="thumb-fallback">${esc(p.title)}</div>
+       <img data-shot="${i}" alt="Screenshot of ${esc(p.title)}" loading="lazy" decoding="async">
+       <div class="thumb-overlay"><button type="button" class="btn btn-gold" data-open="${i}">Quick preview</button></div>`
+    : `<div class="cover" aria-hidden="true"><span class="cover-mark">${esc(initials(p.title))}</span><span class="cover-note">${esc(p.category)}</span></div>`;
+  const btns = [];
+  if (live) btns.push(`<a class="btn btn-gold" href="${esc(p.live)}" target="_blank" rel="noopener noreferrer">Visit live project ↗</a>`);
+  if (p.repo) btns.push(`<a class="btn btn-outline" href="${esc(p.repo)}" target="_blank" rel="noopener noreferrer">View source code</a>`);
+  if (!btns.length) btns.push(`<span class="btn btn-ghost" aria-disabled="true">Coming soon</span>`);
+  return `<article class="card project reveal ${live ? "is-live" : "is-soon"}" data-status="${live ? "live" : "soon"}" style="--d:${(i % 3) * 0.08}s">
     <div class="thumb">
-      <div class="thumb-bar"><i></i><i></i><i></i><span>${esc(hostOf(p.live))}</span></div>
-      <div class="thumb-shot">
-        <div class="thumb-fallback">${esc(p.title)}</div>
-        <img data-shot="${i}" alt="Screenshot of ${esc(p.title)}" loading="lazy">
-        <div class="thumb-overlay"><button type="button" class="btn btn-gold" data-open="${i}">Quick preview</button></div>
-      </div>
+      <div class="thumb-bar"><i></i><i></i><i></i><span>${live ? esc(hostOf(p.live)) : "Coming soon"}</span></div>
+      <div class="thumb-shot">${cover}</div>
     </div>
     <div class="project-body">
+      <div class="meta"><span class="cat">${esc(p.category)}</span><span class="status ${live ? "live" : "soon"}">${esc(st)}</span></div>
       <h3>${esc(p.title)}</h3>
       <p>${esc(p.description)}</p>
-      <div class="tags">${p.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
-      <div class="btn-row">
-        <a class="btn btn-gold" href="${esc(p.live)}" target="_blank" rel="noopener noreferrer">Visit live project ↗</a>
-        <a class="btn btn-outline" href="${esc(p.repo)}" target="_blank" rel="noopener noreferrer">View source code</a>
-      </div>
+      ${p.tags && p.tags.length ? `<div class="tags">${p.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>` : ""}
+      <div class="btn-row">${btns.join("")}</div>
     </div>
-  </article>`).join("");
+  </article>`;
+}
+$("#projectsGrid").innerHTML = PROJECTS.map(projectCard).join("");
 $$("img[data-shot]").forEach((img) => attachShot(img, PROJECTS[+img.dataset.shot], () => img.remove()));
 
+// Filters: All / Live / Coming soon
+const pf = $("#projectFilters");
+pf.innerHTML = [["all", "All", PROJECTS.length], ["live", "Live", LIVE_IDX.length], ["soon", "Coming soon", SOON]]
+  .filter(([k, , n]) => k === "all" || n > 0)
+  .map(([k, label, n], i) => `<button type="button" class="tab${i ? "" : " active"}" data-f="${k}" aria-pressed="${i ? "false" : "true"}">${label} <span class="count">${n}</span></button>`).join("");
+if (pf.children.length < 3) pf.hidden = true;
+pf.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-f]"); if (!b) return;
+  $$("button", pf).forEach((x) => { const on = x === b; x.classList.toggle("active", on); x.setAttribute("aria-pressed", on); });
+  $$("#projectsGrid .project").forEach((c) => { c.hidden = b.dataset.f !== "all" && c.dataset.status !== b.dataset.f; });
+});
+
 /* ---------- Render: GitHub repos ---------- */
-$("#repoList").innerHTML = PROJECTS.map((p) => {
+const REPOS = PROJECTS.filter((p) => p.repo);
+$("#repoList").innerHTML = REPOS.map((p) => {
   const name = p.repo.replace(/\/$/, "").split("/").slice(-2).join(" / ");
   return `<a class="repo" href="${esc(p.repo)}" target="_blank" rel="noopener noreferrer">
-    <div><h3>${esc(name)}</h3><p>${esc(p.title)} — ${esc(p.tags.join(", "))}</p></div>
+    <div><h3>${esc(name)}</h3><p>${esc(p.title)}${p.tags.length ? " — " + esc(p.tags.join(", ")) : ""}</p></div>
     <span class="link">View repository →</span></a>`;
 }).join("");
 $("#githubProfile").href = CONFIG.github;
 
 /* ---------- Preview section ---------- */
-let current = 0, mode = "live", device = "desktop";
+let current = LIVE_IDX.length ? LIVE_IDX[0] : -1, mode = "live", device = "desktop";
 const body = $("#previewBody");
 
 function renderPreview() {
@@ -152,9 +218,10 @@ function renderPreview() {
   $("#previewVisit").href = p.live;
   $("#previewCode").href = p.repo;
   $(".browser").classList.toggle("is-mobile", device === "mobile");
-  $$("#projectTabs .tab").forEach((t, i) => {
-    t.classList.toggle("active", i === current);
-    t.setAttribute("aria-selected", i === current);
+  $$("#projectTabs .tab").forEach((t) => {
+    const on = +t.dataset.i === current;
+    t.classList.toggle("active", on);
+    t.setAttribute("aria-selected", on);
   });
   $$("#modeTabs .tab").forEach((t) => {
     const on = t.dataset.mode === mode;
@@ -173,13 +240,13 @@ function renderPreview() {
     setTimeout(() => { const l = $("#loader"); if (l && !l.classList.contains("hide")) l.textContent = "Taking a while? Use the button below to open the site in a new tab."; }, 8000);
   } else {
     body.innerHTML = `<img class="shot" alt="Screenshot of ${esc(p.title)}">
-      <div class="empty" id="shotEmpty" hidden>No screenshot available yet.<br>Add one at <code>${esc(p.screenshot || "assets/your-project.png")}</code></div>`;
+      <div class="empty" id="shotEmpty" hidden>No screenshot available yet.<br>Add one at <code>${esc(p.screenshot || "assets/projects/" + slug(p.title) + ".jpg")}</code></div>`;
     attachShot($("img", body), p, () => { $("img", body)?.remove(); $("#shotEmpty").hidden = false; });
   }
 }
 
-$("#projectTabs").innerHTML = PROJECTS.map((p, i) =>
-  `<button class="tab" role="tab" data-i="${i}">${esc(p.title)}</button>`).join("");
+$("#projectTabs").innerHTML = LIVE_IDX.map((i) =>
+  `<button class="tab" role="tab" data-i="${i}">${esc(PROJECTS[i].title)}</button>`).join("");
 $("#projectTabs").addEventListener("click", (e) => {
   const b = e.target.closest("[data-i]"); if (!b) return;
   current = +b.dataset.i; renderPreview();
@@ -192,7 +259,9 @@ $("#deviceTabs").addEventListener("click", (e) => {
   const b = e.target.closest("[data-device]"); if (!b) return;
   device = b.dataset.device; renderPreview();
 });
-if (PROJECTS.length) renderPreview();
+if (current >= 0) renderPreview();
+else { $("#preview").hidden = true; $$('a[href="#preview"]').forEach((a) => a.closest("li")?.remove()); }
+if (!REPOS.length) $("#github").hidden = true;
 
 /* ---------- Quick-preview modal ---------- */
 const modal = $("#previewModal");
@@ -279,12 +348,57 @@ form.addEventListener("submit", async (e) => {
 });
 
 /* ---------- Footer ---------- */
-$("#footerProjects").innerHTML = PROJECTS.map((p) => `<li><a href="${esc(p.live)}" target="_blank" rel="noopener noreferrer">${esc(p.title)}</a></li>`).join("");
+$("#footerProjects").innerHTML = LIVE_IDX.map((i) => `<li><a href="${esc(PROJECTS[i].live)}" target="_blank" rel="noopener noreferrer">${esc(PROJECTS[i].title)}</a></li>`).join("")
+  + `<li><a href="#projects">All projects</a></li>`;
 $("#footerConnect").innerHTML = [
   `<li><a href="${esc(CONFIG.github)}" target="_blank" rel="noopener noreferrer">GitHub</a></li>`,
   CONFIG.email ? `<li><a href="mailto:${esc(CONFIG.email)}">Email</a></li>` : "",
   `<li><a href="#contact">Contact form</a></li>`,
 ].join("");
+
+/* ---------- Design gallery + lightbox ---------- */
+const gal = $("#designGallery"), lb = $("#lightbox");
+let lbVis = [], lbPos = 0;
+if (!DESIGNS.length) {
+  $("#designEmpty").hidden = false;
+} else {
+  gal.innerHTML = DESIGNS.map((d, i) => `
+    <button type="button" class="g-item reveal" data-d="${i}" data-cat="${esc(d.category || "")}" aria-label="View ${esc(d.title)}">
+      <img src="${esc(d.image)}" alt="${esc(d.alt || d.title)}" loading="lazy" decoding="async"${d.width ? ` width="${+d.width}" height="${+d.height}"` : ""}>
+      <span class="g-cap"><strong>${esc(d.title)}</strong>${d.category ? `<em>${esc(d.category)}</em>` : ""}</span>
+    </button>`).join("");
+  $$(".g-item img", gal).forEach((img) => img.addEventListener("error", () => img.closest(".g-item").remove()));
+  const cats = [...new Set(DESIGNS.map((d) => d.category).filter(Boolean))];
+  const df = $("#designFilters");
+  if (cats.length > 1) {
+    df.hidden = false;
+    df.innerHTML = ["All", ...cats].map((c, i) => `<button type="button" class="tab${i ? "" : " active"}" data-c="${i ? esc(c) : ""}" aria-pressed="${!i}">${esc(c)}</button>`).join("");
+    df.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-c]"); if (!b) return;
+      $$("button", df).forEach((x) => { x.classList.toggle("active", x === b); x.setAttribute("aria-pressed", x === b); });
+      $$(".g-item", gal).forEach((g) => { g.hidden = !!b.dataset.c && g.dataset.cat !== b.dataset.c; });
+    });
+  }
+  const lbShow = (pos) => {
+    lbPos = (pos + lbVis.length) % lbVis.length;
+    const d = DESIGNS[lbVis[lbPos]];
+    $("#lbImg").src = d.image; $("#lbImg").alt = d.alt || d.title;
+    $("#lbTitle").textContent = d.title; $("#lbCat").textContent = d.category || "";
+  };
+  gal.addEventListener("click", (e) => {
+    const b = e.target.closest(".g-item"); if (!b || typeof lb.showModal !== "function") return;
+    lbVis = $$(".g-item:not([hidden])", gal).map((x) => +x.dataset.d);
+    lbShow(lbVis.indexOf(+b.dataset.d));
+    $$(".lb-nav", lb).forEach((n) => (n.hidden = lbVis.length < 2));
+    document.body.classList.add("modal-open"); lb.showModal();
+  });
+  $("#lbPrev").addEventListener("click", () => lbShow(lbPos - 1));
+  $("#lbNext").addEventListener("click", () => lbShow(lbPos + 1));
+  $("#lbClose").addEventListener("click", () => lb.close());
+  lb.addEventListener("click", (e) => { if (e.target === lb) lb.close(); });
+  lb.addEventListener("keydown", (e) => { if (e.key === "ArrowLeft") lbShow(lbPos - 1); if (e.key === "ArrowRight") lbShow(lbPos + 1); });
+  lb.addEventListener("close", () => { $("#lbImg").removeAttribute("src"); document.body.classList.remove("modal-open"); });
+}
 
 /* ---------- Mobile nav ---------- */
 const toggle = $("#navToggle"), menu = $("#navMenu");
