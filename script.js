@@ -1,3 +1,4 @@
+/* VERSION 7 - gallery reads /images first, then /assets/design */
 /* =====================================================================
    EASY UPDATE ZONE — edit only this section to change your portfolio.
    ===================================================================== */
@@ -107,28 +108,28 @@ const DESIGN_CATEGORIES = [
   { name: "Certificates & Invitations", blurb: "Certificate and invitation designs.", ratio: "4/3" },
 ];
 const DESIGNS = [
-  { category: "Flyers & Promotional Designs", title: "Digital Agency Promo Flyer", image: "assets/design/graphic-design-01.jpg", ratio: "3/4", concept: true,
+  { category: "Flyers & Promotional Designs", title: "Digital Agency Promo Flyer", image: "images/graphic-design-01.jpg", ratio: "3/4", concept: true,
     description: "Self-initiated concept: a bold promotional flyer for a fictional digital agency.",
     alt: "Promotional flyer for a fictional digital agency with the headline Grow your brand online" },
-  { category: "Logo Design & Brand Identity", title: "Terravia Brand Identity", image: "assets/design/graphic-design-02.jpg", ratio: "4/3", concept: true,
+  { category: "Logo Design & Brand Identity", title: "Terravia Brand Identity", image: "images/graphic-design-02.jpg", ratio: "4/3", concept: true,
     description: "Self-initiated concept: logo, colour palette and typography for a fictional ceramics studio.",
     alt: "Brand identity board for a fictional ceramics brand with logo, colour palette and typography" },
-  { category: "Product Advertisements", title: "Ember & Rye Burger Poster", image: "assets/design/graphic-design-03.jpg", ratio: "3/4", concept: true,
+  { category: "Product Advertisements", title: "Ember & Rye Burger Poster", image: "images/graphic-design-03.jpg", ratio: "3/4", concept: true,
     description: "Self-initiated concept: a food advertisement for a fictional burger restaurant, with an illustrated burger.",
     alt: "Advertisement poster with an illustrated burger and the headline Smash. Stack." },
-  { category: "Flyers & Promotional Designs", title: "The Meridian Residences", image: "assets/design/graphic-design-04.jpg", ratio: "4/5", concept: true,
+  { category: "Flyers & Promotional Designs", title: "The Meridian Residences", image: "images/graphic-design-04.jpg", ratio: "4/5", concept: true,
     description: "Self-initiated concept: a luxury property advertisement for a fictional villa development.",
     alt: "Luxury property advertisement with an illustrated modern villa at dusk" },
-  { category: "Social Media Designs", title: "Brewline Social Post", image: "assets/design/graphic-design-05.jpg", ratio: "4/5", concept: true,
+  { category: "Social Media Designs", title: "Brewline Social Post", image: "images/graphic-design-05.jpg", ratio: "4/5", concept: true,
     description: "Self-initiated concept: a seasonal campaign post for a fictional coffee brand.",
     alt: "Social media post for a fictional coffee brand with a latte art illustration" },
-  { category: "Business & Event Posters", title: "Future Forms Summit Poster", image: "assets/design/graphic-design-06.jpg", ratio: "12/17", concept: true,
+  { category: "Business & Event Posters", title: "Future Forms Summit Poster", image: "images/graphic-design-06.jpg", ratio: "12/17", concept: true,
     description: "Self-initiated concept: an event poster for a fictional design and technology summit.",
     alt: "Event poster for a fictional design and technology summit with bold geometric shapes" },
-  { category: "Business Cards & Stationery", title: "Strata Business Card", image: "assets/design/graphic-design-07.jpg", ratio: "4/3", concept: true,
+  { category: "Business Cards & Stationery", title: "Strata Business Card", image: "images/graphic-design-07.jpg", ratio: "4/3", concept: true,
     description: "Self-initiated concept: front and back business card for a fictional consulting firm.",
     alt: "Front and back of a business card for a fictional consulting firm" },
-  { category: "YouTube Thumbnails", title: "AI & Web Developers Thumbnail", image: "assets/design/graphic-design-08.jpg", ratio: "16/9", concept: true,
+  { category: "YouTube Thumbnails", title: "AI & Web Developers Thumbnail", image: "images/graphic-design-08.jpg", ratio: "16/9", concept: true,
     description: "Self-initiated concept: an attention-grabbing thumbnail for a technology video.",
     alt: "YouTube thumbnail with the text Will AI replace web devs and a glowing AI chip" },
 ];
@@ -399,8 +400,8 @@ $("#footerConnect").innerHTML = [
 const gal = $("#designGallery"), lb = $("#lightbox");
 let lbVis = [], lbPos = 0;
 const catOf = (d) => DESIGN_CATEGORIES.find((c) => c.name === d.category) || { blurb: "", ratio: "4/5" };
-// If a design is not found in assets/design/, the same file name is also tried in /images/
-const altPath = (u) => u.replace(/^assets\/design\//, "images/");
+// Designs are read from /images/ first; if not found there, the same file name is tried in /assets/design/
+const altPath = (u) => (/^images\//.test(u) ? u.replace(/^images\//, "assets/design/") : u.replace(/^assets\/design\//, "images/"));
 const fileOf = (d) => (d.image || "").split("/").pop();
 const phHTML = (d) => `<span class="ph-badge">Placeholder</span><span class="ph-icon" aria-hidden="true">✦</span><span class="ph-file">${esc(fileOf(d))}</span><span class="ph-note">Your design goes here</span>`;
 
