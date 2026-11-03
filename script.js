@@ -399,6 +399,8 @@ $("#footerConnect").innerHTML = [
 const gal = $("#designGallery"), lb = $("#lightbox");
 let lbVis = [], lbPos = 0;
 const catOf = (d) => DESIGN_CATEGORIES.find((c) => c.name === d.category) || { blurb: "", ratio: "4/5" };
+// If a design is not found in assets/design/, the same file name is also tried in /images/
+const altPath = (u) => u.replace(/^assets\/design\//, "images/");
 const fileOf = (d) => (d.image || "").split("/").pop();
 const phHTML = (d) => `<span class="ph-badge">Placeholder</span><span class="ph-icon" aria-hidden="true">✦</span><span class="ph-file">${esc(fileOf(d))}</span><span class="ph-note">Your design goes here</span>`;
 
@@ -421,8 +423,9 @@ if (!DESIGNS.length) {
   // Show the real image if the file exists; otherwise a clearly-labelled placeholder.
   $$(".g-card", gal).forEach((card) => {
     const d = DESIGNS[+card.dataset.d], media = $(".g-media", card), img = $("img", media);
-    img.addEventListener("load", () => { media.style.aspectRatio = "auto"; img.classList.add("loaded"); card.dataset.ph = ""; });
+    img.addEventListener("load", () => { card.dataset.dir = img.dataset.retry ? "alt" : ""; media.style.aspectRatio = "auto"; img.classList.add("loaded"); card.dataset.ph = ""; });
     img.addEventListener("error", () => {
+      if (!img.dataset.retry) { img.dataset.retry = "1"; img.src = altPath(d.thumb || d.image); return; } // try the /images folder
       img.remove(); card.dataset.ph = "1";
       media.insertAdjacentHTML("afterbegin", `<span class="ph">${phHTML(d)}</span>`);
     });
@@ -448,7 +451,7 @@ if (!DESIGNS.length) {
     const img = $("#lbImg"), ph = $("#lbPh");
     ph.hidden = !isPh; img.hidden = isPh;
     if (isPh) { ph.style.setProperty("--r", d.ratio || catOf(d).ratio); ph.innerHTML = phHTML(d); img.removeAttribute("src"); }
-    else { img.src = d.image; img.alt = d.alt || d.title; }
+    else { const card = $(`.g-card[data-d="${i}"]`, gal); img.src = card.dataset.dir === "alt" ? altPath(d.image) : d.image; img.alt = d.alt || d.title; }
     $("#lbTitle").textContent = d.title; $("#lbCat").textContent = d.category + (d.concept ? " · Concept Project" : "");
     $("#lbDesc").textContent = d.description || catOf(d).blurb;
     $("#lbCount").textContent = `${lbPos + 1} / ${lbVis.length}`;
