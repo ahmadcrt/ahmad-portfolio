@@ -87,9 +87,8 @@ const PROJECTS = [
 
 /* ---------------------------------------------------------------------
    GRAPHIC DESIGN GALLERY — how to add your real work (no other editing needed):
-   1. Save your image in the  assets/design/  folder using the file name shown
-      on each placeholder (for example  business-flyer-01.jpg).
-   2. That's it — the placeholder is replaced automatically by your image.
+   The 8 pieces below are self-initiated CONCEPT designs (graphic-design-01 to 08.jpg).
+   To replace one, save your own image with the same file name in assets/design/.
 
    To add MORE pieces, copy any line below, change the file name (…-02.jpg),
    the title and (optionally) add  description: "Your own short description".
@@ -108,14 +107,30 @@ const DESIGN_CATEGORIES = [
   { name: "Certificates & Invitations", blurb: "Certificate and invitation designs.", ratio: "4/3" },
 ];
 const DESIGNS = [
-  { category: "Flyers & Promotional Designs", title: "Business Flyer 01",        image: "assets/design/business-flyer-01.jpg" },
-  { category: "Logo Design & Brand Identity", title: "Brand Identity 01",        image: "assets/design/brand-identity-01.jpg" },
-  { category: "Social Media Designs",         title: "Social Media Design 01",   image: "assets/design/social-media-design-01.jpg" },
-  { category: "Business & Event Posters",     title: "Event Poster 01",          image: "assets/design/event-poster-01.jpg" },
-  { category: "Business Cards & Stationery",  title: "Business Card 01",         image: "assets/design/business-card-01.jpg" },
-  { category: "YouTube Thumbnails",           title: "YouTube Thumbnail 01",     image: "assets/design/youtube-thumbnail-01.jpg" },
-  { category: "Product Advertisements",       title: "Product Advertisement 01", image: "assets/design/product-advertisement-01.jpg" },
-  { category: "Certificates & Invitations",   title: "Certificate Design 01",    image: "assets/design/certificate-invitation-01.jpg" },
+  { category: "Flyers & Promotional Designs", title: "Digital Agency Promo Flyer", image: "assets/design/graphic-design-01.jpg", ratio: "3/4", concept: true,
+    description: "Self-initiated concept: a bold promotional flyer for a fictional digital agency.",
+    alt: "Promotional flyer for a fictional digital agency with the headline Grow your brand online" },
+  { category: "Logo Design & Brand Identity", title: "Terravia Brand Identity", image: "assets/design/graphic-design-02.jpg", ratio: "4/3", concept: true,
+    description: "Self-initiated concept: logo, colour palette and typography for a fictional ceramics studio.",
+    alt: "Brand identity board for a fictional ceramics brand with logo, colour palette and typography" },
+  { category: "Product Advertisements", title: "Ember & Rye Burger Poster", image: "assets/design/graphic-design-03.jpg", ratio: "3/4", concept: true,
+    description: "Self-initiated concept: a food advertisement for a fictional burger restaurant, with an illustrated burger.",
+    alt: "Advertisement poster with an illustrated burger and the headline Smash. Stack." },
+  { category: "Flyers & Promotional Designs", title: "The Meridian Residences", image: "assets/design/graphic-design-04.jpg", ratio: "4/5", concept: true,
+    description: "Self-initiated concept: a luxury property advertisement for a fictional villa development.",
+    alt: "Luxury property advertisement with an illustrated modern villa at dusk" },
+  { category: "Social Media Designs", title: "Brewline Social Post", image: "assets/design/graphic-design-05.jpg", ratio: "4/5", concept: true,
+    description: "Self-initiated concept: a seasonal campaign post for a fictional coffee brand.",
+    alt: "Social media post for a fictional coffee brand with a latte art illustration" },
+  { category: "Business & Event Posters", title: "Future Forms Summit Poster", image: "assets/design/graphic-design-06.jpg", ratio: "12/17", concept: true,
+    description: "Self-initiated concept: an event poster for a fictional design and technology summit.",
+    alt: "Event poster for a fictional design and technology summit with bold geometric shapes" },
+  { category: "Business Cards & Stationery", title: "Strata Business Card", image: "assets/design/graphic-design-07.jpg", ratio: "4/3", concept: true,
+    description: "Self-initiated concept: front and back business card for a fictional consulting firm.",
+    alt: "Front and back of a business card for a fictional consulting firm" },
+  { category: "YouTube Thumbnails", title: "AI & Web Developers Thumbnail", image: "assets/design/graphic-design-08.jpg", ratio: "16/9", concept: true,
+    description: "Self-initiated concept: an attention-grabbing thumbnail for a technology video.",
+    alt: "YouTube thumbnail with the text Will AI replace web devs and a glowing AI chip" },
 ];
 
 /* =====================================================================
@@ -397,7 +412,7 @@ if (!DESIGNS.length) {
         <span class="g-zoom" aria-hidden="true">View ⤢</span>
       </button>
       <div class="g-meta">
-        <span class="g-cat">${esc(d.category)}</span>
+        <div class="g-row"><span class="g-cat">${esc(d.category)}</span>${d.concept ? '<span class="g-badge">Concept Project</span>' : ""}</div>
         <h3>${esc(d.title)}</h3>
         <p>${esc(d.description || catOf(d).blurb)}</p>
       </div>
@@ -434,7 +449,7 @@ if (!DESIGNS.length) {
     ph.hidden = !isPh; img.hidden = isPh;
     if (isPh) { ph.style.setProperty("--r", d.ratio || catOf(d).ratio); ph.innerHTML = phHTML(d); img.removeAttribute("src"); }
     else { img.src = d.image; img.alt = d.alt || d.title; }
-    $("#lbTitle").textContent = d.title; $("#lbCat").textContent = d.category;
+    $("#lbTitle").textContent = d.title; $("#lbCat").textContent = d.category + (d.concept ? " · Concept Project" : "");
     $("#lbDesc").textContent = d.description || catOf(d).blurb;
     $("#lbCount").textContent = `${lbPos + 1} / ${lbVis.length}`;
   };

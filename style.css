@@ -411,3 +411,8 @@ body.modal-open{overflow:hidden}
   .design-cta .btn{width:100%}
 }
 @media (min-width:601px) and (max-width:900px){.gallery{columns:2}}
+
+/* Concept labels */
+.design-note{margin-top:1.1rem;padding-left:.9rem;border-left:2px solid var(--gold);color:var(--muted);font-size:.9rem;max-width:560px}
+.g-row{display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap}
+.g-badge{padding:.2rem .6rem;border-radius:999px;border:1px solid var(--line);background:rgba(212,175,55,.08);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--gold-2);white-space:nowrap}
