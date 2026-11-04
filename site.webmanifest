@@ -1,0 +1,14 @@
+{
+  "name": "AHMAD YUNUSA — Web Developer & Graphic Designer",
+  "short_name": "AHMAD YUNUSA",
+  "description": "Portfolio of Ahmad Yunusa, web developer and graphic designer.",
+  "start_url": "/ahmad-portfolio/",
+  "scope": "/ahmad-portfolio/",
+  "display": "browser",
+  "background_color": "#0a1128",
+  "theme_color": "#0a1128",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

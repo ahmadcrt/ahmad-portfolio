@@ -1,142 +1,4 @@
-/* VERSION 7 - gallery reads /images first, then /assets/design */
-/* =====================================================================
-   EASY UPDATE ZONE — edit only this section to change your portfolio.
-   ===================================================================== */
-
-const CONFIG = {
-  name: "Ahmad",
-  github: "https://github.com/ahmadcrt",   // your GitHub profile
-  email: "",                               // optional: "you@example.com" (adds an email card; form falls back to your email app)
-
-  // CONTACT FORM — to receive messages directly, create a free form at formspree.io
-  // and paste its URL here, e.g. "https://formspree.io/f/xxxxxxxx".
-  // (Using web3forms.com instead? Leave this as their URL and set web3formsKey.)
-  formEndpoint: "",
-  web3formsKey: "",
-
-  // If a project has no local screenshot file, show an automatic screenshot of its live site.
-  autoScreenshots: true,
-};
-
-// Short facts shown in the About section (only true things!)
-const FACTS = [
-  { label: "Role", value: "Web Developer & Graphic Designer" },
-  { label: "Focus", value: "Responsive websites & visual design" },
-  { label: "Core stack", value: "HTML5 · CSS3 · JavaScript" },
-];
-
-// Skills — add or remove items freely.
-// match: a tag name from PROJECTS (used to count projects), or "*" for all projects.
-const SKILLS = [
-  { icon: "html", accent: "#e34f26", name: "HTML5", match: "HTML5",
-    text: "Semantic, accessible page structure.", points: ["Semantic markup", "Forms", "Media"] },
-  { icon: "css", accent: "#1572b6", name: "CSS3", match: "CSS3",
-    text: "Responsive layouts, Flexbox, Grid and animations.", points: ["Flexbox", "Grid", "Animations", "Responsive"] },
-  { icon: "js", accent: "#f7df1e", name: "JavaScript", match: "JavaScript",
-    text: "Vanilla JavaScript for interactive, dynamic interfaces.", points: ["DOM", "Events", "ES6+", "Fetch API"] },
-  { icon: "git", accent: "#f05032", name: "Git & GitHub", match: "*",
-    text: "Version control and publishing projects with GitHub Pages.", points: ["Commits", "Repositories", "GitHub Pages"] },
-  { icon: "design", accent: "#d4af37", name: "Graphic Design", match: "",
-    text: "Flyers, logos, posters, social media graphics and more — see the Graphic Design portfolio.", points: [] },
-];
-
-/* ---------------------------------------------------------------------
-   PROJECTS — one block per website. To update a project, just fill in its fields:
-     live: the working website URL  -> the card becomes "Live" automatically
-     repo: the GitHub repository URL (leave "" if none)
-     tags: technologies you actually used, e.g. ["HTML5","CSS3","JavaScript"]
-     screenshot: optional. By default the site looks for your own screenshot at
-                 assets/projects/<project-name>.jpg (e.g. assets/projects/nova-digital.jpg),
-                 then falls back to an automatic screenshot of the live site.
-   Projects with no "live" link show as "Coming Soon". Nothing is shown that
-   you haven't filled in.
-   --------------------------------------------------------------------- */
-const PROJECTS = [
-  { title: "NOVA DIGITAL", category: "Digital Marketing Agency",
-    description: "My first published website: a digital marketing agency site, built with front-end web technologies and hosted on GitHub Pages.",
-    tags: ["HTML5", "CSS3", "JavaScript"],
-    live: "https://ahmadcrt.github.io/nova-digital/", repo: "https://github.com/ahmadcrt/nova-digital", screenshot: "" },
-  { title: "AHMAD PORTFOLIO", category: "Personal Developer Portfolio",
-    description: "The portfolio you're viewing now: a responsive site presenting my website projects and design work.",
-    tags: ["HTML5", "CSS3", "JavaScript"],
-    live: "https://ahmadcrt.github.io/ahmad-portfolio/", repo: "https://github.com/ahmadcrt/ahmad-portfolio", screenshot: "" },
-  { title: "LUXORA ESTATES", category: "Real Estate",
-    description: "A demo luxury real estate website with searchable property listings, services and an enquiry form. All properties and people are fictional.",
-    tags: [], live: "https://ahmadcrt.github.io/luxora-estates/", repo: "", screenshot: "" },
-  { title: "SAVORA RESTAURANT", category: "Restaurant & Food",
-    description: "A fictional restaurant website built as a portfolio demonstration, with a menu, gallery and a demo reservation form.",
-    tags: [], live: "https://ahmadcrt.github.io/savora-restaurant/", repo: "", screenshot: "" },
-  { title: "VELORA FITNESS", category: "Fitness & Gym",
-    description: "A fictional premium gym website built as a front-end portfolio project, with programmes, trainers, membership plans and a class schedule.",
-    tags: [], live: "https://ahmadcrt.github.io/velora-fitness/", repo: "", screenshot: "" },
-  { title: "AMOO TECH", category: "Electronics E-commerce",
-    description: "A fictional electronics store built for a front-end portfolio, with product listings, categories, sorting and availability filters.",
-    tags: [], live: "https://ahmadcrt.github.io/Amoo-tech/", repo: "", screenshot: "" },
-  { title: "EDUCORE", category: "Online Learning Platform",
-    description: "An online learning platform demo with three learning academies, a course catalogue and sample course content.",
-    tags: [], live: "https://ahmadcrt.github.io/educore/index.html", repo: "", screenshot: "" },
-  { title: "REDCARE HOSPITALS", category: "Healthcare Management",
-    description: "A healthcare website project for a hospital brand, focused on clear information for patients and visitors.",
-    tags: [], live: "", repo: "", screenshot: "" },
-  { title: "AURELIA HOTELS", category: "Hotel Booking & Management",
-    description: "A hotel website project focused on presenting rooms and hospitality to prospective guests.",
-    tags: [], live: "", repo: "", screenshot: "" },
-  { title: "PAYNEX FINTECH", category: "Financial Technology",
-    description: "A financial technology website project focused on presenting digital finance services clearly.",
-    tags: [], live: "", repo: "", screenshot: "" },
-];
-
-/* ---------------------------------------------------------------------
-   GRAPHIC DESIGN GALLERY — how to add your real work (no other editing needed):
-   The 8 pieces below are self-initiated CONCEPT designs (graphic-design-01 to 08.jpg).
-   To replace one, save your own image with the same file name in assets/design/.
-
-   To add MORE pieces, copy any line below, change the file name (…-02.jpg),
-   the title and (optionally) add  description: "Your own short description".
-   Optional fields:  thumb: "assets/design/thumbs/x.jpg" (small version for the
-   grid, full image opens in the viewer),  alt: "describe the image".
-   Delete a line to remove a piece. Delete all lines to hide the gallery.
-   --------------------------------------------------------------------- */
-const DESIGN_CATEGORIES = [
-  { name: "Flyers & Promotional Designs", blurb: "Eye-catching flyers and promotional graphics.", ratio: "4/5" },
-  { name: "Logo Design & Brand Identity", blurb: "Logo design and visual brand identity.", ratio: "1/1" },
-  { name: "Social Media Designs", blurb: "Designs made for social media feeds and stories.", ratio: "1/1" },
-  { name: "Business & Event Posters", blurb: "Posters for businesses and events.", ratio: "3/4" },
-  { name: "Business Cards & Stationery", blurb: "Business cards and branded stationery.", ratio: "7/4" },
-  { name: "YouTube Thumbnails", blurb: "Thumbnail designs for video channels.", ratio: "16/9" },
-  { name: "Product Advertisements", blurb: "Advertising visuals that showcase products.", ratio: "4/5" },
-  { name: "Certificates & Invitations", blurb: "Certificate and invitation designs.", ratio: "4/3" },
-];
-const DESIGNS = [
-  { category: "Flyers & Promotional Designs", title: "Digital Agency Promo Flyer", image: "images/graphic-design-01.jpg", ratio: "3/4", concept: true,
-    description: "Self-initiated concept: a bold promotional flyer for a fictional digital agency.",
-    alt: "Promotional flyer for a fictional digital agency with the headline Grow your brand online" },
-  { category: "Logo Design & Brand Identity", title: "Terravia Brand Identity", image: "images/graphic-design-02.jpg", ratio: "4/3", concept: true,
-    description: "Self-initiated concept: logo, colour palette and typography for a fictional ceramics studio.",
-    alt: "Brand identity board for a fictional ceramics brand with logo, colour palette and typography" },
-  { category: "Product Advertisements", title: "Ember & Rye Burger Poster", image: "images/graphic-design-03.jpg", ratio: "3/4", concept: true,
-    description: "Self-initiated concept: a food advertisement for a fictional burger restaurant, with an illustrated burger.",
-    alt: "Advertisement poster with an illustrated burger and the headline Smash. Stack." },
-  { category: "Flyers & Promotional Designs", title: "The Meridian Residences", image: "images/graphic-design-04.jpg", ratio: "4/5", concept: true,
-    description: "Self-initiated concept: a luxury property advertisement for a fictional villa development.",
-    alt: "Luxury property advertisement with an illustrated modern villa at dusk" },
-  { category: "Social Media Designs", title: "Brewline Social Post", image: "images/graphic-design-05.jpg", ratio: "4/5", concept: true,
-    description: "Self-initiated concept: a seasonal campaign post for a fictional coffee brand.",
-    alt: "Social media post for a fictional coffee brand with a latte art illustration" },
-  { category: "Business & Event Posters", title: "Future Forms Summit Poster", image: "images/graphic-design-06.jpg", ratio: "12/17", concept: true,
-    description: "Self-initiated concept: an event poster for a fictional design and technology summit.",
-    alt: "Event poster for a fictional design and technology summit with bold geometric shapes" },
-  { category: "Business Cards & Stationery", title: "Strata Business Card", image: "images/graphic-design-07.jpg", ratio: "4/3", concept: true,
-    description: "Self-initiated concept: front and back business card for a fictional consulting firm.",
-    alt: "Front and back of a business card for a fictional consulting firm" },
-  { category: "YouTube Thumbnails", title: "AI & Web Developers Thumbnail", image: "images/graphic-design-08.jpg", ratio: "16/9", concept: true,
-    description: "Self-initiated concept: an attention-grabbing thumbnail for a technology video.",
-    alt: "YouTube thumbnail with the text Will AI replace web devs and a glowing AI chip" },
-];
-
-/* =====================================================================
-   Code below renders everything — no need to edit it.
-   ===================================================================== */
+/* VERSION 8 - script.js: renders the page from data.js (no need to edit this file). */
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -206,10 +68,10 @@ function projectCard(p, i) {
        <div class="thumb-overlay"><button type="button" class="btn btn-gold" data-open="${i}">Quick preview</button></div>`
     : `<div class="cover" aria-hidden="true"><span class="cover-mark">${esc(initials(p.title))}</span><span class="cover-note">${esc(p.category)}</span></div>`;
   const btns = [];
-  if (live) btns.push(`<a class="btn btn-gold" href="${esc(p.live)}" target="_blank" rel="noopener noreferrer">Visit live project ↗</a>`);
-  if (p.repo) btns.push(`<a class="btn btn-outline" href="${esc(p.repo)}" target="_blank" rel="noopener noreferrer">View source code</a>`);
+  if (live) btns.push(`<a class="btn btn-gold" href="${esc(p.live)}" target="_blank" rel="noopener noreferrer" aria-label="Live Demo: ${esc(p.title)} (opens in a new tab)">Live Demo <svg class="ico" aria-hidden="true"><use href="#i-external"/></svg></a>`);
+  if (p.repo) btns.push(`<a class="btn btn-outline" href="${esc(p.repo)}" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository: ${esc(p.title)} (opens in a new tab)"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg> GitHub</a>`);
   if (!btns.length) btns.push(`<span class="btn btn-ghost" aria-disabled="true">Coming soon</span>`);
-  return `<article class="card project reveal ${live ? "is-live" : "is-soon"}" data-status="${live ? "live" : "soon"}" style="--d:${(i % 3) * 0.08}s">
+  return `<article class="card project reveal ${live ? "is-live" : "is-soon"}" data-i="${i}" data-status="${live ? "live" : "soon"}" style="--d:${(i % 3) * 0.08}s">
     <div class="thumb">
       <div class="thumb-bar"><i></i><i></i><i></i><span>${live ? esc(hostOf(p.live)) : "Coming soon"}</span></div>
       <div class="thumb-shot">${cover}</div>
@@ -226,16 +88,22 @@ function projectCard(p, i) {
 $("#projectsGrid").innerHTML = PROJECTS.map(projectCard).join("");
 $$("img[data-shot]").forEach((img) => attachShot(img, PROJECTS[+img.dataset.shot], () => img.remove()));
 
-// Filters: All / Live / Coming soon
+// Filters: by group (e.g. Business & Finance). "Coming soon" appears only if a project has no live link.
 const pf = $("#projectFilters");
-pf.innerHTML = [["all", "All", PROJECTS.length], ["live", "Live", LIVE_IDX.length], ["soon", "Coming soon", SOON]]
-  .filter(([k, , n]) => k === "all" || n > 0)
-  .map(([k, label, n], i) => `<button type="button" class="tab${i ? "" : " active"}" data-f="${k}" aria-pressed="${i ? "false" : "true"}">${label} <span class="count">${n}</span></button>`).join("");
-if (pf.children.length < 3) pf.hidden = true;
+const GROUPS = [...new Set(PROJECTS.map((p) => p.group).filter(Boolean))];
+const filterDefs = [["all", "All", PROJECTS.length], ...GROUPS.map((g) => ["g:" + g, g, PROJECTS.filter((p) => p.group === g).length])];
+if (SOON) filterDefs.push(["soon", "Coming soon", SOON]);
+pf.innerHTML = filterDefs.map(([k, label, n], i) =>
+  `<button type="button" class="tab${i ? "" : " active"}" data-f="${esc(k)}" aria-pressed="${i ? "false" : "true"}">${esc(label)} <span class="count">${n}</span></button>`).join("");
+if (filterDefs.length < 3) pf.hidden = true;
 pf.addEventListener("click", (e) => {
   const b = e.target.closest("[data-f]"); if (!b) return;
   $$("button", pf).forEach((x) => { const on = x === b; x.classList.toggle("active", on); x.setAttribute("aria-pressed", on); });
-  $$("#projectsGrid .project").forEach((c) => { c.hidden = b.dataset.f !== "all" && c.dataset.status !== b.dataset.f; });
+  const k = b.dataset.f;
+  $$("#projectsGrid .project").forEach((c) => {
+    const p = PROJECTS[+c.dataset.i];
+    c.hidden = !(k === "all" || (k === "soon" && !p.live) || k === "g:" + p.group);
+  });
 });
 
 /* ---------- Render: GitHub repos ---------- */
@@ -261,12 +129,12 @@ function renderPreview() {
   $$("#projectTabs .tab").forEach((t) => {
     const on = +t.dataset.i === current;
     t.classList.toggle("active", on);
-    t.setAttribute("aria-selected", on);
+    t.setAttribute("aria-pressed", on);
   });
   $$("#modeTabs .tab").forEach((t) => {
     const on = t.dataset.mode === mode;
     t.classList.toggle("active", on);
-    t.setAttribute("aria-selected", on);
+    t.setAttribute("aria-pressed", on);
   });
   $$("#deviceTabs .tab").forEach((t) => {
     const on = t.dataset.device === device;
@@ -286,7 +154,7 @@ function renderPreview() {
 }
 
 $("#projectTabs").innerHTML = LIVE_IDX.map((i) =>
-  `<button class="tab" role="tab" data-i="${i}">${esc(PROJECTS[i].title)}</button>`).join("");
+  `<button class="tab" data-i="${i}" aria-pressed="false">${esc(PROJECTS[i].title)}</button>`).join("");
 $("#projectTabs").addEventListener("click", (e) => {
   const b = e.target.closest("[data-i]"); if (!b) return;
   current = +b.dataset.i; renderPreview();
@@ -305,7 +173,9 @@ if (!REPOS.length) $("#github").hidden = true;
 
 /* ---------- Quick-preview modal ---------- */
 const modal = $("#previewModal");
+let modalOpener = null;
 function openModal(i) {
+  modalOpener = document.activeElement;
   const p = PROJECTS[i];
   if (typeof modal.showModal !== "function") { window.open(p.live, "_blank", "noopener"); return; }
   $("#modalTitle").textContent = p.title;
@@ -323,82 +193,47 @@ $("#projectsGrid").addEventListener("click", (e) => {
 });
 $("#modalClose").addEventListener("click", () => modal.close());
 modal.addEventListener("click", (e) => { if (e.target === modal) modal.close(); });
-modal.addEventListener("close", () => { $("#modalBody").innerHTML = ""; document.body.classList.remove("modal-open"); });
+modal.addEventListener("close", () => { $("#modalBody").innerHTML = ""; document.body.classList.remove("modal-open"); modalOpener?.focus?.(); });
 
-/* ---------- Contact ---------- */
-const cards = [];
-cards.push(`<a class="contact-card" href="${esc(CONFIG.github)}" target="_blank" rel="noopener noreferrer">
-  <div class="skill-icon" aria-hidden="true">Git</div><div><small>GitHub</small><span>${esc(CONFIG.github.replace("https://", ""))}</span></div></a>`);
-if (CONFIG.email) cards.unshift(`<a class="contact-card" href="mailto:${esc(CONFIG.email)}">
-  <div class="skill-icon" aria-hidden="true">@</div><div><small>Email</small><span>${esc(CONFIG.email)}</span></div></a>`);
-$("#contactCards").innerHTML = cards.join("");
-
-// How the form delivers: "endpoint" (Formspree/Web3Forms) > "mailto" (your email app) > "none"
-const FORM_MODE = CONFIG.formEndpoint ? "endpoint" : CONFIG.email ? "mailto" : "none";
-$("#formHint").textContent = FORM_MODE === "mailto" ? "Sending will open your email app with the message ready to go." : "";
-
-const form = $("#contactForm"), note = $("#formNote"), btn = $("#formBtn");
-const setNote = (type, html) => { note.className = "form-note" + (type ? " " + type : ""); note.innerHTML = html; };
-form.addEventListener("input", (e) => e.target.removeAttribute?.("aria-invalid"));
-
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const f = form.elements;
-  const name = f.name.value.trim(), email = f.email.value.trim(), message = f.message.value.trim();
-
-  const checks = [[f.name, name.length >= 2, "your name"], [f.email, f.email.checkValidity() && !!email, "a valid email"], [f.message, message.length >= 10, "a message (at least 10 characters)"]];
-  const bad = checks.filter(([, ok]) => !ok);
+/* ---------- Contact: WhatsApp / email composer (works without a server) ---------- */
+const form = $("#contactForm"), note = $("#formNote");
+const setNote = (type, text) => { note.className = "form-note" + (type ? " " + type : ""); note.textContent = text; };
+// Opens a link the way a normal click would (new tab for web links, same tab for mailto)
+function go(url, newTab) {
+  const a = document.createElement("a");
+  a.href = url; if (newTab) { a.target = "_blank"; a.rel = "noopener noreferrer"; }
+  document.body.appendChild(a); a.click(); a.remove();
+}
+function readForm() {
+  const f = form.elements, name = f.name.value.trim(), message = f.message.value.trim();
+  const checks = [[f.name, name.length >= 2, "your name"], [f.message, message.length >= 10, "a short message (at least 10 characters)"]];
   checks.forEach(([el, ok]) => el.setAttribute("aria-invalid", !ok));
-  if (bad.length) { setNote("error", `Please enter ${bad[0][2]}.`); bad[0][0].focus(); return; }
-
-  if (f._gotcha.value) { setNote("ok", "Thanks! Your message was sent."); form.reset(); return; } // bot trap
-
-  if (FORM_MODE === "none") {
-    setNote("error", `The form isn't connected yet — please reach me on <a href="${esc(CONFIG.github)}" target="_blank" rel="noopener noreferrer">GitHub</a> for now.`);
-    return;
-  }
-  if (FORM_MODE === "mailto") {
-    const subject = encodeURIComponent(`Portfolio message from ${name}`);
-    const text = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
-    window.location.href = `mailto:${CONFIG.email}?subject=${subject}&body=${text}`;
-    setNote("ok", "Opening your email app…");
-    return;
-  }
-
-  // Endpoint mode (Formspree / Web3Forms)
-  btn.disabled = true; btn.textContent = "Sending…"; setNote("", "");
-  const ctrl = new AbortController(); const timer = setTimeout(() => ctrl.abort(), 15000);
-  try {
-    const payload = { name, email, message, _subject: `Portfolio message from ${name}` };
-    if (CONFIG.web3formsKey) payload.access_key = CONFIG.web3formsKey;
-    const res = await fetch(CONFIG.formEndpoint, {
-      method: "POST", signal: ctrl.signal,
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify(payload),
-    });
-    let data = {}; try { data = await res.json(); } catch {}
-    if (!res.ok || data.success === false) throw new Error(data.message || data.error || "Request failed");
-    setNote("ok", "Thanks! Your message was sent.");
-    form.reset();
-  } catch (err) {
-    setNote("error", err.name === "AbortError" ? "The request timed out. Please try again." : "Sorry, the message couldn't be sent. Please try again or contact me on GitHub.");
-  } finally {
-    clearTimeout(timer); btn.disabled = false; btn.textContent = "Send message";
-  }
+  const bad = checks.find(([, ok]) => !ok);
+  if (bad) { setNote("error", `Please enter ${bad[2]}.`); bad[0].focus(); return null; }
+  if (f._gotcha.value) return null; // spam trap
+  return { name, type: f.type.value, message };
+}
+const messageText = ({ name, type, message }) => `Hello Ahmad, my name is ${name}.\nI'm interested in: ${type}.\n\n${message}`;
+$("#sendWa").addEventListener("click", () => {
+  const d = readForm(); if (!d) return;
+  go(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(messageText(d))}`, true);
+  setNote("ok", "Opening WhatsApp with your message ready to send.");
 });
+$("#sendMail").addEventListener("click", () => {
+  const d = readForm(); if (!d) return;
+  go(`mailto:${CONFIG.email}?subject=${encodeURIComponent("Project enquiry from " + d.name)}&body=${encodeURIComponent(messageText(d))}`, false);
+  setNote("ok", "Opening your email app with your message ready to send.");
+});
+form.addEventListener("submit", (e) => { e.preventDefault(); $("#sendWa").click(); });
+form.addEventListener("input", (e) => e.target.removeAttribute?.("aria-invalid"));
 
 /* ---------- Footer ---------- */
 $("#footerProjects").innerHTML = LIVE_IDX.map((i) => `<li><a href="${esc(PROJECTS[i].live)}" target="_blank" rel="noopener noreferrer">${esc(PROJECTS[i].title)}</a></li>`).join("")
   + `<li><a href="#projects">All projects</a></li>`;
-$("#footerConnect").innerHTML = [
-  `<li><a href="${esc(CONFIG.github)}" target="_blank" rel="noopener noreferrer">GitHub</a></li>`,
-  CONFIG.email ? `<li><a href="mailto:${esc(CONFIG.email)}">Email</a></li>` : "",
-  `<li><a href="#contact">Contact form</a></li>`,
-].join("");
 
 /* ---------- Graphic design gallery + lightbox ---------- */
 const gal = $("#designGallery"), lb = $("#lightbox");
-let lbVis = [], lbPos = 0;
+let lbVis = [], lbPos = 0, lbOpener = null;
 const catOf = (d) => DESIGN_CATEGORIES.find((c) => c.name === d.category) || { blurb: "", ratio: "4/5" };
 // Designs are read from /images/ first; if not found there, the same file name is tried in /assets/design/
 const altPath = (u) => (/^images\//.test(u) ? u.replace(/^images\//, "assets/design/") : u.replace(/^assets\/design\//, "images/"));
@@ -459,6 +294,7 @@ if (!DESIGNS.length) {
   };
   gal.addEventListener("click", (e) => {
     const b = e.target.closest(".g-media"); if (!b || typeof lb.showModal !== "function") return;
+    lbOpener = b;
     lbVis = $$(".g-card:not([hidden])", gal).map((x) => +x.dataset.d);
     lbShow(lbVis.indexOf(+b.closest(".g-card").dataset.d));
     $$(".lb-nav", lb).forEach((n) => (n.hidden = lbVis.length < 2));
@@ -469,7 +305,7 @@ if (!DESIGNS.length) {
   $("#lbClose").addEventListener("click", () => lb.close());
   lb.addEventListener("click", (e) => { if (e.target === lb) lb.close(); });
   lb.addEventListener("keydown", (e) => { if (e.key === "ArrowLeft") lbShow(lbPos - 1); if (e.key === "ArrowRight") lbShow(lbPos + 1); });
-  lb.addEventListener("close", () => { $("#lbImg").removeAttribute("src"); document.body.classList.remove("modal-open"); });
+  lb.addEventListener("close", () => { $("#lbImg").removeAttribute("src"); document.body.classList.remove("modal-open"); lbOpener?.focus?.(); });
 }
 
 // "Let's Work Together" -> existing contact section (with a friendly starter message)
@@ -498,7 +334,7 @@ addEventListener("scroll", onScroll, { passive: true }); onScroll();
 const links = $$(".nav-menu a");
 const spy = new IntersectionObserver((entries) => {
   entries.forEach((en) => {
-    if (en.isIntersecting) links.forEach((l) => l.classList.toggle("active", l.getAttribute("href") === "#" + en.target.id));
+    if (en.isIntersecting) links.forEach((l) => { const on = l.getAttribute("href") === "#" + en.target.id; l.classList.toggle("active", on); on ? l.setAttribute("aria-current", "true") : l.removeAttribute("aria-current"); });
   });
 }, { rootMargin: "-45% 0px -50% 0px" });
 $$("main section[id]").forEach((s) => spy.observe(s));

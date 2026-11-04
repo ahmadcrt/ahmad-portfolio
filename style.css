@@ -416,3 +416,50 @@ body.modal-open{overflow:hidden}
 .design-note{margin-top:1.1rem;padding-left:.9rem;border-left:2px solid var(--gold);color:var(--muted);font-size:.9rem;max-width:560px}
 .g-row{display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap}
 .g-badge{padding:.2rem .6rem;border-radius:999px;border:1px solid var(--line);background:rgba(212,175,55,.08);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--gold-2);white-space:nowrap}
+
+/* ===== Upgrade v8: icons, services, contact, socials, footer ===== */
+.ico{width:1.15em;height:1.15em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-.18em}
+.btn .ico{width:1.05em;height:1.05em}
+.photo-frame picture{display:block}
+.hero-meta{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;margin:0 0 1.7rem;color:var(--muted);font-size:.92rem}
+.hero-meta li{display:inline-flex;align-items:center;gap:.5rem}
+.hero-meta .ico{color:var(--gold)}
+
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:1.6rem}
+.service{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:.5rem;padding:2rem}
+.service::before{content:"";position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,var(--gold),transparent)}
+.service-icon{width:60px;height:60px;border-radius:18px;display:grid;place-items:center;margin-bottom:.9rem;color:var(--gold);background:rgba(212,175,55,.12);border:1px solid var(--line);transition:transform .3s}
+.service-icon .ico{width:28px;height:28px}
+.service:hover .service-icon{transform:translateY(-3px) rotate(-4deg)}
+.service h3{font-size:1.6rem}
+.service>p{color:var(--muted)}
+.service-links{display:flex;flex-wrap:wrap;align-items:center;gap:.8rem 1.5rem;margin-top:auto;padding-top:1.5rem}
+.service-links a{display:inline-flex;align-items:center;gap:.4rem;font-weight:600;font-size:.92rem;color:var(--gold-2);transition:gap .2s,color .2s}
+.service-links a:first-child:hover{gap:.7rem}
+.service-links a:last-child{color:var(--white);border-bottom:1px solid var(--gold)}
+
+.contact-side{display:grid;gap:1.4rem;align-content:start}
+.contact-card .skill-icon .ico{width:24px;height:24px}
+.contact-card span span{overflow-wrap:anywhere}
+.contact-loc{display:flex;align-items:center;gap:.6rem;color:var(--muted);font-size:.92rem}
+.contact-loc .ico{color:var(--gold)}
+.socials{display:flex;flex-wrap:wrap;gap:.7rem}
+.socials a{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);color:var(--gold-2);transition:background .25s,color .25s,transform .25s,border-color .25s}
+.socials a:hover{background:var(--gold);color:var(--navy);border-color:var(--gold);transform:translateY(-3px)}
+.socials .ico{width:20px;height:20px}
+.socials-sm{margin-top:1.2rem}.socials-sm a{width:40px;height:40px}
+.form h3{font-size:1.4rem;margin-bottom:.2rem}
+.form select{width:100%;background:var(--navy-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%23d4af37' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 1rem center;border:1px solid var(--line);border-radius:10px;padding:.8rem 2.6rem .8rem 1rem;color:var(--white);font:inherit;font-size:1rem;appearance:none;-webkit-appearance:none;transition:border-color .2s}
+.form select:focus{outline:none;border-color:var(--gold)}
+.form select option{background:var(--navy-2);color:var(--white)}
+.form-actions{display:flex;flex-wrap:wrap;gap:.8rem}
+.form-actions .btn{flex:1 1 190px}
+.footer .muted{color:var(--muted);font-size:.9rem}
+.noscript-note,.noscript-list{color:var(--muted);margin-bottom:1rem}
+.noscript-list li{margin:.3rem 0}.noscript-list a{color:var(--gold-2);text-decoration:underline}
+
+/* Slightly larger small text for readability */
+.g-badge{font-size:.72rem}
+.tech-count{font-size:.76rem}
+.chips li{font-size:.76rem}
+.status{font-size:.76rem}
